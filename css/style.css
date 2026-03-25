@@ -9,11 +9,7 @@
       min-height: 100vh;
     }
   
- 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) scale(1); }
-      50% { transform: translateY(-20px) scale(1.04); }
-    }
+
  
     /* Card entrance animation */
     .card {
@@ -82,3 +78,5 @@
     /* Password toggle */
     .toggle-pw { cursor: pointer; transition: color 0.15s; }
     .toggle-pw:hover { color: #6366f1; }
+
+    /* Dashboard Page */
