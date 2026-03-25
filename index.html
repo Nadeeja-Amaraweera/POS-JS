@@ -7,11 +7,14 @@
     <title>POS.pro</title>
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
-<body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#1e3c4c] to-[#0d1f2a]">
-    <div id="login-section" class="flex w-[900px] h-[550px] rounded-2xl overflow-hidden shadow-2xl">
-        <!-- LEFT PANEL -->
+<!-- <body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#1e3c4c] to-[#0d1f2a]"> -->
+    
+    <!-- Login Section -->
+    <!-- <div id="login-section" class="flex w-[900px] h-[550px] rounded-2xl overflow-hidden shadow-2xl">
+        
         <div class="flex flex-col justify-between items-center flex-1 bg-[#8ca3af] p-10">
             <h1 class="text-[2.5rem] text-[#4a6d81] font-bold">
                 POS.<span class="text-[#5cb8ff]">pro</span>
@@ -25,7 +28,7 @@
             <p class="text-xs text-white/60">@Developed By Nadeeja Amaraweera</p>
         </div>
 
-        <!-- RIGHT PANEL -->
+        
         <div
             class="flex flex-col justify-center items-center flex-[1.2] bg-gradient-to-br from-[#7b96a4] to-[#0d3b4c] p-10">
             <form class="w-4/5">
@@ -47,19 +50,140 @@
                 </button>
             </form>
         </div>
+    </div>  -->
+
+
+<body class="flex flex-col items-center justify-center min-h-screen px-4 py-10 relative">
+ 
+
+  <!-- Page content -->
+  <div class="relative z-10 w-full max-w-lg flex flex-col items-center">
+ 
+    <!-- Logo + Title -->
+    <div class="logo-wrap flex flex-col items-center mb-6 select-none">
+      <div class="w-25 h-25 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg mb-4 border border-white/30">
+        <i class="fa-solid fa-cash-register text-white text-5xl"></i>
+      </div>
+      <h1 class="text-white text-3xl font-extrabold tracking-tight">POS Manager</h1>
+      <p class="text-white/70 text-sm mt-1 font-medium">Point of Sale System</p>
     </div>
+ 
+    <!-- Card -->
+    <div class="card w-full bg-white rounded-3xl shadow-2xl p-8">
+ 
+      <!-- Card Header -->
+      <div class="flex items-start justify-between mb-6">
+        <div>
+          <h2 class="text-2xl font-extrabold text-gray-800">Welcome Back</h2>
+          <p class="text-gray-400 text-sm mt-0.5 font-medium">Sign in to your account</p>
+        </div>
+        <div class="w-11 h-11 rounded-xl bg-indigo-600 flex items-center justify-center shadow-md flex-shrink-0">
+          <i class="fa-solid fa-lock text-white text-base"></i>
+        </div>
+      </div>
+ 
+      <!-- Username -->
+      <div class="mb-5">
+        <label class="block text-sm font-bold text-gray-600 mb-1.5">
+          <i class="fa-regular fa-envelope text-indigo-500 mr-1.5"></i>Username / Email Address
+        </label>
+        <div class="relative">
+          <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">
+            <i class="fa-regular fa-user"></i>
+          </span>
+          <input
+            type="text"
+            placeholder="admin@pos.com"
+            class="pos-input w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-700 text-sm font-medium placeholder-gray-300"
+            id="usernameField"
+          />
+        </div>
+      </div>
+ 
+      <!-- Password -->
+      <div class="mb-5">
+        <label class="block text-sm font-bold text-gray-600 mb-1.5">
+          <i class="fa-solid fa-key text-indigo-500 mr-1.5"></i>Password
+        </label>
+        <div class="relative">
+          <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">
+            <i class="fa-solid fa-lock"></i>
+          </span>
+          <input
+            type="password"
+            id="passwordField"
+            placeholder="••••••••"
+            class="pos-input w-full pl-10 pr-12 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-700 text-sm font-medium placeholder-gray-300"
+          />
+          <span class="toggle-pw absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400" onclick="togglePassword()">
+            <i id="eyeIcon" class="fa-regular fa-eye"></i>
+          </span>
+        </div>
+      </div>
+ 
+      <!-- Login As -->
+      <div class="mb-6">
+        <label class="block text-sm font-bold text-gray-600 mb-2.5">
+          <i class="fa-solid fa-user-group text-indigo-500 mr-1.5"></i>Login As
+        </label>
+        <div class="grid grid-cols-3 gap-3">
+          <!-- Admin -->
+          <button class="role-btn active rounded-xl py-3 px-2 flex flex-col items-center gap-1.5" onclick="selectRole(this)">
+            <i class="fa-solid fa-user-shield text-indigo-500 text-xl"></i>
+            <span class="text-xs font-bold text-gray-700">Admin</span>
+          </button>
+          <!-- Manager -->
+          <button class="role-btn rounded-xl py-3 px-2 flex flex-col items-center gap-1.5" onclick="selectRole(this)">
+            <i class="fa-solid fa-user-tie text-emerald-500 text-xl"></i>
+            <span class="text-xs font-bold text-gray-700">Manager</span>
+          </button>
+          <!-- Cashier -->
+          <button class="role-btn rounded-xl py-3 px-2 flex flex-col items-center gap-1.5" onclick="selectRole(this)">
+            <i class="fa-solid fa-user text-amber-500 text-xl"></i>
+            <span class="text-xs font-bold text-gray-700">Cashier</span>
+          </button>
+        </div>
+      </div>
+ 
+      <!-- Remember + Forgot -->
+      <div class="flex items-center justify-between mb-6">
+        <label class="flex items-center gap-2 cursor-pointer select-none">
+          <input type="checkbox" class="custom-check rounded"/>
+          <span class="text-sm text-gray-500 font-semibold">Remember me</span>
+        </label>
+        <a href="#" class="text-sm font-bold text-indigo-600 hover:text-indigo-800 transition-colors">
+          Forgot Password?
+        </a>
+      </div>
+ 
+      <!-- Sign In Button -->
+      <button class="signin-btn w-full py-3.5 rounded-xl text-white font-extrabold text-base tracking-wide flex items-center justify-center gap-2.5 shadow-md" onclick="login()">
+        <i class="fa-solid fa-right-to-bracket text-lg"></i>
+        Sign In
+      </button>
+ 
+    </div>
+ 
+    <!-- Footer -->
+    <div class="mt-8 text-center text-white/60 text-xs font-medium select-none">
+      <p>© 2026 POS Manager • Professional Point of Sale System</p>
+      <p class="mt-1 text-white/40">Developed by · Nadeeja Amaraweera</p>
+    </div>
+ 
+  </div>
 
     <!-- Login section error message -->
     <!-- Error Box -->
     <div id="error-box" class="fixed top-[10%] left-1/2 -translate-x-1
-            bg-red-500/20 text-red-400 px-5 py-4 rounded-md 
-            border border-red-500/30 shadow-md w-auto 
-            error-msg-box">
+            bg-red-500/60 text-white px-5 py-4 rounded-md 
+            border border-red-500/30 shadow-md w-auto
+            error-msg-box z-11">
 
-        <p id="error-text">Invalid username or password. Please try again.</p>
+        <p id="error-text">Invalid username or password. Please try again.
+        <i id="error-close-btn" class="fa-solid fa-xmark fa-xl cursor-pointer px-3 text-red-200 hover:text-red-300"></i>
 
-        <i id="error-close-btn" class="fa-solid fa-xmark fa-xl absolute top-2 right-2 cursor-pointer text-red-500">
-        </i>
+        </p>
+
     </div>
 
     <div id="dashboard-section" class="section hidden">

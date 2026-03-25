@@ -20,7 +20,7 @@ function showErrorSlowly() {
 function hideErrorAuto() {
     setTimeout(function () {
         hideError();
-    }, 3000);
+    },3000);
 }
 
 if (errorCloseBtn) {
@@ -29,8 +29,8 @@ if (errorCloseBtn) {
 
 // login to dashboard
 function login() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const username = document.getElementById("usernameField").value;
+    const password = document.getElementById("passwordField").value;
 
     if (username === "admin" && password === "admin123") {
         showpage("login-section", "dashboard-section");
@@ -40,7 +40,29 @@ function login() {
     }
 }
 
+// Change page
 function showpage(hidepage, showpage) {
     document.getElementById(hidepage).style.display = "none";
     document.getElementById(showpage).style.display = "block";
+}
+
+// Toggle password visibility
+const passwordField = document.getElementById("passwordField");
+const icon = document.getElementById("eyeIcon");
+
+function togglePassword(){
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        icon.classList.replace("fa-eye", "fa-eye-slash");
+    } else {
+        passwordField.type = "password";
+        icon.classList.replace("fa-eye-slash", "fa-eye");
+    }
+}
+
+
+// Role Selection
+function selectRole(btn) {
+    document.querySelectorAll(".role-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
 }
