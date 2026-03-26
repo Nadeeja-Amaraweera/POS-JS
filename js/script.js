@@ -46,7 +46,7 @@ function showpage(hidepage, showpage) {
     document.getElementById(showpage).style.display = "flex";
 }
 
-
+//  Load specific page in dashboard
 function loadPage(pageId) {
     // Define all possible page IDs
     const pages = ['customerPage', 'itemsPage', 'ordersPage', 'loginPage'];
@@ -91,6 +91,38 @@ function loadPage(pageId) {
         }
     });
 }
+
+// Load order page with specific content
+function loadOrderPage(pageId) {
+    // Hide all order-related pages first
+    const orderPages = ['orderPlacePage', 'orderViewPage'];
+    orderPages.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.classList.add("hidden");
+            el.style.display = "none";
+        }
+    });
+
+    // Show the requested order page
+    const target = document.getElementById(pageId);
+    if (target) {
+        target.classList.remove("hidden");
+        target.style.display = "flex";
+    }
+
+    // Update the active state of the order buttons
+    const orderButtons = document.querySelectorAll('.order-btn');
+    orderButtons.forEach(button => {
+        if (button.getAttribute('onclick').includes(pageId)) {
+            button.classList.add('bg-indigo-600', 'text-white');
+        } else {
+            button.classList.remove('bg-indigo-600', 'text-white');
+        }
+    });
+
+}
+
 
 // Toggle password visibility
 const passwordField = document.getElementById("passwordField");
