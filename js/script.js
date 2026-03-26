@@ -43,7 +43,7 @@ function login() {
 // Change page
 function showpage(hidepage, showpage) {
     document.getElementById(hidepage).style.display = "none";
-    document.getElementById(showpage).style.display = "block";
+    document.getElementById(showpage).style.display = "flex";
 }
 
 // Toggle password visibility
