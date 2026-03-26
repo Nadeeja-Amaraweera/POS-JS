@@ -7,12 +7,11 @@
     <title>POS.pro</title>
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/160cb449a7.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 
-<body class="flex flex-col items-center justify-center min-h-screen px-4 py-10 relative">
-
+<body class="flex flex-col items-center justify-center min-h-screen relative">
 
     <!-- Page content -->
     <div class="relative z-10 w-full max-w-lg flex flex-col items-center" id="loginPage">
@@ -120,7 +119,6 @@
                 <i class="fa-solid fa-right-to-bracket text-lg"></i>
                 Sign In
             </button>
-
         </div>
 
         <!-- Footer -->
@@ -128,7 +126,6 @@
             <p>© 2026 POS Manager • Professional Point of Sale System</p>
             <p class="mt-1 text-white/40">Developed by · Nadeeja Amaraweera</p>
         </div>
-
     </div>
 
     <!-- Login section error message -->
@@ -146,24 +143,13 @@
 
     </div>
 
-
     <!-- Dashboard Page -->
-    <!-- <div class="relative z-10 w-full h-full bg-red-100" id="dashPage" style="display: none;">
-        <h1 class="text-4xl font-extrabold text-gray-800 mb-6">Dashboard</h1>
-        <p class="text-gray-600 text-lg">Welcome to the dashboard! This is where you can manage your POS system.</p>
-    </div> -->
-
-
     <div class="flex bg-gray-50 font-sans w-full min-h-screen m-0 p-0 hidden" id="dashPage">
         <aside class="w-64 bg-[#2D235C] text-white flex flex-col">
             <div class="p-6 border-b border-indigo-900/50">
                 <div class="flex items-center gap-2">
                     <div class="p-2 bg-white/10 rounded-lg">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z">
-                            </path>
-                        </svg>
+                        <i class="fa-solid fa-cash-register text-white text-3xl"></i>
                     </div>
                     <div>
                         <h2 class="font-bold leading-tight">POSManager</h2>
@@ -173,36 +159,47 @@
             </div>
 
             <nav class="flex-1 p-4 space-y-2">
-                <a href="#" class="flex items-center gap-3 px-4 py-3 bg-gray-300 text-gray-800 rounded-lg font-medium">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z">
-                        </path>
+                <a href="#" id="nav-customerPage"
+                    class="flex items-center gap-3 px-4 py-3 bg-gray-300 text-gray-800 rounded-lg font-medium"
+                    onclick="loadPage('customerPage')">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                     </svg>
                     <span>Customers</span>
-                    <span class="ml-auto text-[10px] bg-indigo-500 text-white px-2 py-0.5 rounded-full">Active</span>
+                    <span
+                        class="active-pill ml-auto text-[10px] bg-indigo-500 text-white px-2 py-0.5 rounded-full">Active</span>
                 </a>
-                <a href="#"
-                    class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/10 rounded-lg transition-colors">
+
+                <a href="#" id="nav-itemsPage"
+                    class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/10 rounded-lg transition-colors"
+                    onclick="loadPage('itemsPage')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                     </svg>
                     <span>Items</span>
+                    <span
+                        class="active-pill hidden ml-auto text-[10px] bg-indigo-500 text-white px-2 py-0.5 rounded-full">Active</span>
                 </a>
                 <a href="#"
-                    class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/10 rounded-lg transition-colors">
+                    class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/10 rounded-lg transition-colors"
+                    onclick="loadPage('ordersPage')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
                         </path>
                     </svg>
                     <span>Orders</span>
+                    <span
+                        class="active-pill hidden ml-auto text-[10px] bg-indigo-500 text-white px-2 py-0.5 rounded-full">Active</span>
                 </a>
             </nav>
 
             <div class="p-4 border-t border-indigo-900/50">
-                <button class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white w-full">
+                <button class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white w-full cursor-pointer"
+                    onclick="logout('loginPage')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
@@ -213,7 +210,8 @@
             </div>
         </aside>
 
-        <main class="flex-1 p-8">
+        <!-- Customer Page -->
+        <main class="flex-1 p-8 flex-col" id="customerPage">
             <h1 class="text-3xl font-bold text-gray-800 mb-8">Customers</h1>
 
             <div class="bg-white border-2 border-indigo-100 rounded-2xl p-6">
@@ -265,22 +263,146 @@
                             <div class="flex gap-2 pt-2">
                                 <button
                                     class="bg-[#4F46E5] text-white px-6 py-2 rounded-lg font-medium flex items-center gap-2 shadow-md hover:bg-indigo-700">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h-2v5.586l-1.293-1.293z">
-                                        </path>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
                                     Register
                                 </button>
                                 <button
                                     class="bg-[#D97706] text-white px-6 py-2 rounded-lg font-medium flex items-center gap-2 shadow-md hover:bg-orange-700">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
-                                        </path>
-                                        <path fill-rule="evenodd"
-                                            d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                            clip-rule="evenodd"></path>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                    </svg>
+
+                                    Update Selected
+                                </button>
+                                <button type="reset"
+                                    class="border border-gray-300 text-gray-600 px-6 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors">Clear</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="lg:col-span-2 border border-indigo-200 rounded-xl p-5 bg-white shadow-sm">
+                        <h4 class="text-sm font-bold text-gray-800 uppercase tracking-tight mb-4">Find & Unregister</h4>
+                        <div class="flex gap-2">
+                            <input type="text" placeholder="Search by ID, Name, Email or Phone"
+                                class="flex-1 border border-gray-300 rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500">
+                            <button
+                                class="bg-[#059669] text-white px-4 py-2 rounded-md hover:bg-emerald-700 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                </svg>
+
+                                Find
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <div class="flex items-center gap-2 mb-4">
+                        <svg class="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z">
+                            </path>
+                        </svg>
+                        <h4 class="font-bold text-gray-800">All Customers (4)</h4>
+                    </div>
+                    <div class="border border-indigo-100 rounded-xl overflow-hidden bg-white shadow-inner">
+                        <table class="w-full text-left">
+                            <thead class="bg-[#F1F5F9] text-gray-800 text-sm">
+                                <tr>
+                                    <th class="px-6 py-4 font-bold border-b border-indigo-50">ID</th>
+                                    <th class="px-6 py-4 font-bold border-b border-indigo-50">Name</th>
+                                    <th class="px-6 py-4 font-bold border-b border-indigo-50">Email</th>
+                                    <th class="px-6 py-4 font-bold border-b border-indigo-50">Phone</th>
+                                    <th class="px-6 py-4 font-bold border-b border-indigo-50">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-indigo-50">
+                                <tr class="hover:bg-gray-50">
+                                    <td colspan="5" class="px-6 py-12 text-center text-gray-400">No customers found.
+                                        Register one to see data here.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Items Page -->
+        <main class="flex-1 p-8 flex-col hidden" id="itemsPage">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8">Items</h1>
+
+            <div class="bg-white border-2 border-indigo-100 rounded-2xl p-6">
+                <div class="flex items-center gap-2 mb-6">
+                    <svg class="w-5 h-5 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z">
+                        </path>
+                    </svg>
+                    <h3 class="font-bold text-gray-700">Manage Item</h3>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
+                    <div class="lg:col-span-3 border border-indigo-200 rounded-xl p-5 bg-white shadow-sm">
+                        <div class="flex items-center gap-2 mb-4">
+                            <svg class="w-4 h-4 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z">
+                                </path>
+                            </svg>
+                            <h4 class="text-sm font-bold text-gray-800 uppercase tracking-tight">Register / Update
+                                Item</h4>
+                        </div>
+
+                        <form class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-500 mb-1">Full Name *</label>
+                                <input type="text"
+                                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-500 mb-1">Email *</label>
+                                <input type="email"
+                                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-500 mb-1">Phone</label>
+                                    <input type="text"
+                                        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-500 mb-1">Customer ID
+                                        (auto)</label>
+                                    <input type="text" disabled
+                                        class="w-full bg-gray-50 border border-gray-200 rounded-md px-3 py-2 text-gray-400">
+                                </div>
+                            </div>
+                            <div class="flex gap-2 pt-2">
+                                <button
+                                    class="bg-[#4F46E5] text-white px-6 py-2 rounded-lg font-medium flex items-center gap-2 shadow-md hover:bg-indigo-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                    Add
+                                </button>
+                                <button
+                                    class="bg-[#D97706] text-white px-6 py-2 rounded-lg font-medium flex items-center gap-2 shadow-md hover:bg-orange-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                     </svg>
                                     Update Selected
                                 </button>
@@ -297,9 +419,10 @@
                                 class="flex-1 border border-gray-300 rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500">
                             <button
                                 class="bg-[#059669] text-white px-4 py-2 rounded-md hover:bg-emerald-700 flex items-center gap-2">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                                 </svg>
                                 Find
                             </button>
@@ -338,8 +461,199 @@
                 </div>
             </div>
         </main>
-    </div>
 
+        <!-- Order Page -->
+        <main class="flex-1 p-8 flex flex-col gap-6 overflow-hidden hidden" id="ordersPage">
+
+            <div class="flex gap-4 mb-2">
+                <button
+                    class="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg font-bold shadow-md" onclick="loadOrderPage('orderPlacePage')">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 100-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
+                        </path>
+                    </svg>
+                    Place Order
+                </button>
+                <button
+                    class="flex items-center gap-2 px-4 py-2 bg-white text-gray-700 border border-gray-200 rounded-lg font-bold hover:bg-gray-50 transition-all" onclick="loadOrderPage('orderViewPage')">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z">
+                        </path>
+                    </svg>
+                    Manage Orders
+                </button>
+            </div>
+
+            <!-- Place Order Page -->
+            <div class="flex-1 p-6 flex flex-col gap-6" id="orderPlacePage">
+
+                <div class="grid grid-cols-12 gap-6 items-start">
+
+                    <section
+                        class="col-span-12 lg:col-span-7 xl:col-span-8 bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                        <h2 class="flex items-center gap-2 text-lg font-bold text-gray-800 mb-6">
+                            <span class="p-1 bg-indigo-100 rounded text-indigo-600">🏪</span> Available Products
+                        </h2>
+
+                        <div class="relative mb-8">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text" placeholder="Search items to add to order..."
+                                class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm transition">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div
+                                class="p-4 border border-gray-100 rounded-xl shadow-sm bg-white flex justify-between items-start hover:shadow-md transition">
+                                <div>
+                                    <h3 class="font-bold text-gray-800">Items Name</h3>
+                                    <p class="text-xs text-gray-400">Item Codew</p>
+                                    <p class="text-indigo-600 font-bold mt-2">price</p>
+                                    <p class="text-emerald-500 text-[10px] font-semibold">Stock: 25</p>
+                                </div>
+                                <button
+                                    class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-1.5 rounded-md text-xs font-medium flex items-center gap-1">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <aside
+                        class="col-span-12 lg:col-span-5 xl:col-span-4 bg-white rounded-xl border-2 border-indigo-100 shadow-lg overflow-hidden flex flex-col min-h-[600px]">
+                        <div class="p-4 bg-indigo-50/50 flex items-center justify-between border-b border-indigo-100">
+                            <h3 class="flex items-center gap-2 text-indigo-900 font-bold">
+                                <i class="fas fa-shopping-basket"></i> Current Order
+                            </h3>
+                            <span
+                                class="bg-indigo-100 text-indigo-600 text-[10px] px-2 py-0.5 rounded-full font-bold">0</span>
+                        </div>
+
+                        <div class="flex-1 flex flex-col items-center justify-center p-10 text-gray-400">
+                            <i class="fas fa-shopping-cart text-4xl mb-3 opacity-20"></i>
+                            <p class="text-sm">No items in order</p>
+                        </div>
+
+                        <div class="p-5 border-t border-gray-100 bg-gray-50/30">
+                            <div class="space-y-2 mb-4 text-sm font-medium">
+                                <div class="flex justify-between text-gray-600">
+                                    <span>Subtotal:</span>
+                                    <span>$0.00</span>
+                                </div>
+                                <div class="flex justify-between text-gray-600">
+                                    <span>Tax (10%):</span>
+                                    <span>$0.00</span>
+                                </div>
+                                <div
+                                    class="flex justify-between text-indigo-600 text-lg font-bold border-t border-dashed border-gray-300 pt-2 mt-2">
+                                    <span>Total:</span>
+                                    <span>$0.00</span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 mb-6">
+                                <input type="text" placeholder="Customer Name *"
+                                    class="w-full px-4 py-2 border border-gray-200 rounded-lg text-sm outline-none focus:border-indigo-500 bg-white">
+                                <input type="text" placeholder="Customer Phone (Optional)"
+                                    class="w-full px-4 py-2 border border-gray-200 rounded-lg text-sm outline-none focus:border-indigo-500 bg-white">
+                            </div>
+
+                            <div class="space-y-3">
+                                <button
+                                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                                    <i class="fas fa-save"></i> Save Customer Order
+                                </button>
+                                <button
+                                    class="w-full border border-red-200 text-red-500 hover:bg-red-50 font-medium py-2 rounded-lg flex items-center justify-center gap-2 transition">
+                                    <i class="fas fa-trash-alt"></i> Clear Order
+                                </button>
+                            </div>
+                        </div>
+                    </aside>
+
+                </div>
+            </div>
+
+
+            <!-- Order View section -->
+            <div class="flex-1 p-8 flex flex-col bg-gray-50 min-h-screen hidden" id="orderViewPage">
+
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-8 max-w-lg">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-xl">📅</span>
+                        <h2 class="text-lg font-bold text-gray-800">Order Management</h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </span>
+                            <input type="text" placeholder="Search orders by Order ID, Customer name or Phone"
+                                class="block w-full pl-10 pr-4 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none text-sm transition">
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button
+                                class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-md flex items-center gap-2 text-sm font-medium transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                                Search
+                            </button>
+                            <button
+                                class="bg-gray-600 hover:bg-gray-700 text-white px-5 py-2 rounded-md flex items-center gap-2 text-sm font-medium transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 6h16M4 12h16M4 18h16"></path>
+                                </svg>
+                                Show All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-gray-100">
+                                <th class="px-6 py-4 text-xs font-bold text-gray-700 uppercase tracking-wider">Order ID
+                                </th>
+                                <th class="px-6 py-4 text-xs font-bold text-gray-700 uppercase tracking-wider">Date &
+                                    Time</th>
+                                <th class="px-6 py-4 text-xs font-bold text-gray-700 uppercase tracking-wider">Customer
+                                    Name</th>
+                                <th class="px-6 py-4 text-xs font-bold text-gray-700 uppercase tracking-wider">Phone
+                                </th>
+                                <th class="px-6 py-4 text-xs font-bold text-gray-700 uppercase tracking-wider">Total
+                                    Amount</th>
+                                <th class="px-6 py-4 text-xs font-bold text-gray-700 uppercase tracking-wider">Order ID
+                                </th>
+                                <th
+                                    class="px-6 py-4 text-xs font-bold text-gray-700 uppercase tracking-wider text-right">
+                                    Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr>
+                                <td colspan="7" class="px-6 py-12 text-center text-gray-400 italic">
+                                    No active orders to display.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
 
     <script src="js/script.js"></script>
 </body>

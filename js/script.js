@@ -46,6 +46,52 @@ function showpage(hidepage, showpage) {
     document.getElementById(showpage).style.display = "flex";
 }
 
+
+function loadPage(pageId) {
+    // Define all possible page IDs
+    const pages = ['customerPage', 'itemsPage', 'ordersPage', 'loginPage'];
+
+    // Loop through and hide EVERY page
+    pages.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.classList.add("hidden");
+            el.style.display = "none"; // Extra safety to ensure no layout gaps
+        }
+    });
+
+    // Show ONLY the requested page
+    const target = document.getElementById(pageId);
+    if (target) {
+        target.classList.remove("hidden");
+        // Use 'flex' for the dashboard to keep the sidebar layout intact
+        target.style.display = (pageId === 'loginPage') ? "flex" : "flex"; 
+    }
+
+
+
+    const navLinks = document.querySelectorAll('nav a');
+    
+    navLinks.forEach(link => {
+        const pill = link.querySelector('.active-pill');
+        
+        // Check if this link corresponds to the clicked page
+        if (link.getAttribute('onclick').includes(pageId)) {
+            // APPLY ACTIVE STYLES
+            link.classList.add('bg-gray-300', 'text-gray-800');
+            link.classList.remove('text-gray-300', 'hover:bg-white/10');
+            
+            if (pill) pill.classList.remove('hidden'); // Show the pill
+        } else {
+            // RESET TO INACTIVE
+            link.classList.remove('bg-gray-300', 'text-gray-800');
+            link.classList.add('text-gray-300', 'hover:bg-white/10');
+            
+            if (pill) pill.classList.add('hidden'); // Hide the pill
+        }
+    });
+}
+
 // Toggle password visibility
 const passwordField = document.getElementById("passwordField");
 const icon = document.getElementById("eyeIcon");
@@ -65,4 +111,10 @@ function togglePassword(){
 function selectRole(btn) {
     document.querySelectorAll(".role-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
+}
+
+// Navigate Pages
+function navigatePageBtn(btn) {
+    const page = btn.querySelector("span").textContent.trim().toLowerCase();
+    showpage("dashPage", page + "Page");
 }
