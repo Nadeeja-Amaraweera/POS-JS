@@ -9,124 +9,12 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://kit.fontawesome.com/160cb449a7.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Alerts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="flex flex-col items-center justify-center min-h-screen relative">
-
-    <!-- Page content -->
-    <div class="relative z-10 w-full max-w-lg flex flex-col items-center" id="loginPage">
-
-        <!-- Logo + Title -->
-        <div class="logo-wrap flex flex-col items-center mb-6 select-none">
-            <div
-                class="w-25 h-25 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg mb-4 border border-white/30">
-                <i class="fa-solid fa-cash-register text-white text-5xl"></i>
-            </div>
-            <h1 class="text-white text-3xl font-extrabold tracking-tight">POS Manager</h1>
-            <p class="text-white/70 text-sm mt-1 font-medium">Point of Sale System</p>
-        </div>
-
-        <!-- Card -->
-        <div class="card w-full bg-white rounded-3xl shadow-2xl p-8">
-
-            <!-- Card Header -->
-            <div class="flex items-start justify-between mb-6">
-                <div>
-                    <h2 class="text-2xl font-extrabold text-gray-800">Welcome Back</h2>
-                    <p class="text-gray-400 text-sm mt-0.5 font-medium">Sign in to your account</p>
-                </div>
-                <div
-                    class="w-11 h-11 rounded-xl bg-indigo-600 flex items-center justify-center shadow-md flex-shrink-0">
-                    <i class="fa-solid fa-lock text-white text-base"></i>
-                </div>
-            </div>
-
-            <!-- Username -->
-            <div class="mb-5">
-                <label class="block text-sm font-bold text-gray-600 mb-1.5">
-                    <i class="fa-regular fa-envelope text-indigo-500 mr-1.5"></i>Username / Email Address
-                </label>
-                <div class="relative">
-                    <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">
-                        <i class="fa-regular fa-user"></i>
-                    </span>
-                    <input type="text" placeholder="admin@pos.com"
-                        class="pos-input w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-700 text-sm font-medium placeholder-gray-300"
-                        id="usernameField" />
-                </div>
-            </div>
-
-            <!-- Password -->
-            <div class="mb-5">
-                <label class="block text-sm font-bold text-gray-600 mb-1.5">
-                    <i class="fa-solid fa-key text-indigo-500 mr-1.5"></i>Password
-                </label>
-                <div class="relative">
-                    <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">
-                        <i class="fa-solid fa-lock"></i>
-                    </span>
-                    <input type="password" id="passwordField" placeholder="••••••••"
-                        class="pos-input w-full pl-10 pr-12 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-700 text-sm font-medium placeholder-gray-300" />
-                    <span class="toggle-pw absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400"
-                        onclick="togglePassword()">
-                        <i id="eyeIcon" class="fa-regular fa-eye"></i>
-                    </span>
-                </div>
-            </div>
-
-            <!-- Login As -->
-            <div class="mb-6">
-                <label class="block text-sm font-bold text-gray-600 mb-2.5">
-                    <i class="fa-solid fa-user-group text-indigo-500 mr-1.5"></i>Login As
-                </label>
-                <div class="grid grid-cols-3 gap-3">
-                    <!-- Admin -->
-                    <button class="role-btn active rounded-xl py-3 px-2 flex flex-col items-center gap-1.5"
-                        onclick="selectRole(this)">
-                        <i class="fa-solid fa-user-shield text-indigo-500 text-xl"></i>
-                        <span class="text-xs font-bold text-gray-700">Admin</span>
-                    </button>
-                    <!-- Manager -->
-                    <button class="role-btn rounded-xl py-3 px-2 flex flex-col items-center gap-1.5"
-                        onclick="selectRole(this)">
-                        <i class="fa-solid fa-user-tie text-emerald-500 text-xl"></i>
-                        <span class="text-xs font-bold text-gray-700">Manager</span>
-                    </button>
-                    <!-- Cashier -->
-                    <button class="role-btn rounded-xl py-3 px-2 flex flex-col items-center gap-1.5"
-                        onclick="selectRole(this)">
-                        <i class="fa-solid fa-user text-amber-500 text-xl"></i>
-                        <span class="text-xs font-bold text-gray-700">Cashier</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Remember + Forgot -->
-            <div class="flex items-center justify-between mb-6">
-                <label class="flex items-center gap-2 cursor-pointer select-none">
-                    <input type="checkbox" class="custom-check rounded" />
-                    <span class="text-sm text-gray-500 font-semibold">Remember me</span>
-                </label>
-                <a href="#" class="text-sm font-bold text-indigo-600 hover:text-indigo-800 transition-colors">
-                    Forgot Password?
-                </a>
-            </div>
-
-            <!-- Sign In Button -->
-            <button
-                class="signin-btn w-full py-3.5 rounded-xl text-white font-extrabold text-base tracking-wide flex items-center justify-center gap-2.5 shadow-md"
-                onclick="login()">
-                <i class="fa-solid fa-right-to-bracket text-lg"></i>
-                Sign In
-            </button>
-        </div>
-
-        <!-- Footer -->
-        <div class="mt-8 text-center text-white/60 text-xs font-medium select-none">
-            <p>© 2026 POS Manager • Professional Point of Sale System</p>
-            <p class="mt-1 text-white/40">Developed by · Nadeeja Amaraweera</p>
-        </div>
-    </div>
 
     <!-- Login section error message -->
     <!-- Error Box -->
@@ -135,7 +23,7 @@
             border border-red-500/30 shadow-md w-auto
             error-msg-box z-11">
 
-        <p id="error-text">Invalid username or password. Please try again.
+        <p id="error-text">
             <i id="error-close-btn"
                 class="fa-solid fa-xmark fa-xl cursor-pointer px-3 text-red-200 hover:text-red-300"></i>
 
@@ -144,7 +32,7 @@
     </div>
 
     <!-- Dashboard Page -->
-    <div class="flex bg-gray-50 font-sans w-full min-h-screen m-0 p-0 hidden" id="dashPage">
+    <div class="flex bg-gray-50 font-sans w-full min-h-screen m-0 p-0" id="dashPage">
         <aside class="w-64 bg-[#2D235C] text-white flex flex-col">
             <div class="p-6 border-b border-indigo-900/50">
                 <div class="flex items-center gap-2">
@@ -160,7 +48,7 @@
 
             <nav class="flex-1 p-4 space-y-2">
                 <a href="#" id="nav-customerPage"
-                    class="flex items-center gap-3 px-4 py-3 bg-gray-300 text-gray-800 rounded-lg font-medium"
+                    class="flex items-center gap-3 px-4 py-3 bg-gray-300 text-gray-800 rounded-lg font-medium transition duration-300 ease-in-out"
                     onclick="loadPage('customerPage')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
@@ -173,7 +61,7 @@
                 </a>
 
                 <a href="#" id="nav-itemsPage"
-                    class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/10 rounded-lg transition-colors"
+                    class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/10 rounded-lg transition duration-300 ease-in-out"
                     onclick="loadPage('itemsPage')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -184,7 +72,7 @@
                         class="active-pill hidden ml-auto text-[10px] bg-indigo-500 text-white px-2 py-0.5 rounded-full">Active</span>
                 </a>
                 <a href="#"
-                    class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/10 rounded-lg transition-colors"
+                    class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/10 rounded-lg transition duration-300 ease-in-out"
                     onclick="loadPage('ordersPage')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -240,29 +128,34 @@
                             <div>
                                 <label class="block text-xs font-semibold text-gray-500 mb-1">Full Name *</label>
                                 <input type="text"
-                                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"
+                                    id="customerName">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-gray-500 mb-1">Email *</label>
                                 <input type="email"
-                                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"
+                                    id="customerEmail">
                             </div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-500 mb-1">Phone</label>
                                     <input type="text"
-                                        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                                        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"
+                                        id="customerPhone">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-500 mb-1">Customer ID
                                         (auto)</label>
                                     <input type="text" disabled
-                                        class="w-full bg-gray-50 border border-gray-200 rounded-md px-3 py-2 text-gray-400">
+                                        class="w-full bg-gray-50 border border-gray-200 rounded-md px-3 py-2 text-gray-400"
+                                        id="customerId">
                                 </div>
                             </div>
                             <div class="flex gap-2 pt-2">
                                 <button
-                                    class="bg-[#4F46E5] text-white px-6 py-2 rounded-lg font-medium flex items-center gap-2 shadow-md hover:bg-indigo-700">
+                                    class="bg-[#4F46E5] text-white px-6 py-2 rounded-lg font-medium flex items-center gap-2 shadow-md hover:bg-indigo-700 cursor-pointer transition duration-300 ease-in-out hover:scale-102"
+                                    onclick="saveCustomer()">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -271,7 +164,8 @@
                                     Register
                                 </button>
                                 <button
-                                    class="bg-[#D97706] text-white px-6 py-2 rounded-lg font-medium flex items-center gap-2 shadow-md hover:bg-orange-700">
+                                    class="bg-[#D97706] text-white px-6 py-2 rounded-lg font-medium flex items-center gap-2 shadow-md hover:bg-orange-700 cursor-pointer transition duration-300 ease-in-out hover:scale-102"
+                                    onclick="updateCustomer()">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -281,7 +175,7 @@
                                     Update Selected
                                 </button>
                                 <button type="reset"
-                                    class="border border-gray-300 text-gray-600 px-6 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors">Clear</button>
+                                    class="border border-gray-300 text-gray-600 px-6 py-2 rounded-lg font-medium hover:bg-gray-300 cursor-pointer transition duration-300 ease-in-out hover:scale-102">Clear</button>
                             </div>
                         </form>
                     </div>
@@ -290,9 +184,11 @@
                         <h4 class="text-sm font-bold text-gray-800 uppercase tracking-tight mb-4">Find & Unregister</h4>
                         <div class="flex gap-2">
                             <input type="text" placeholder="Search by ID, Name, Email or Phone"
-                                class="flex-1 border border-gray-300 rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500">
+                                class="flex-1 border border-gray-300 rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500"
+                                id="customerSearch">
                             <button
-                                class="bg-[#059669] text-white px-4 py-2 rounded-md hover:bg-emerald-700 flex items-center gap-2">
+                                class="bg-[#059669] text-white px-4 py-2 rounded-md hover:bg-emerald-700 flex items-center gap-2 cursor-pointer transition duration-200 ease-in-out hover:scale-102"
+                                onclick="findCustomer()">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -300,6 +196,17 @@
                                 </svg>
 
                                 Find
+                            </button>
+                            <button
+                                class="bg-[#575757] text-white px-4 py-2 rounded-md hover:bg-gray-700 flex items-center gap-2 cursor-pointer transition duration-200 ease-in-out hover:scale-102"
+                                onclick="loadCustomers()">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                </svg>
+
+                                All
                             </button>
                         </div>
                     </div>
@@ -314,24 +221,26 @@
                         </svg>
                         <h4 class="font-bold text-gray-800">All Customers (4)</h4>
                     </div>
-                    <div class="border border-indigo-100 rounded-xl overflow-hidden bg-white shadow-inner">
-                        <table class="w-full text-left">
-                            <thead class="bg-[#F1F5F9] text-gray-800 text-sm">
-                                <tr>
-                                    <th class="px-6 py-4 font-bold border-b border-indigo-50">ID</th>
-                                    <th class="px-6 py-4 font-bold border-b border-indigo-50">Name</th>
-                                    <th class="px-6 py-4 font-bold border-b border-indigo-50">Email</th>
-                                    <th class="px-6 py-4 font-bold border-b border-indigo-50">Phone</th>
-                                    <th class="px-6 py-4 font-bold border-b border-indigo-50">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-indigo-50">
-                                <tr class="hover:bg-gray-50">
-                                    <td colspan="5" class="px-6 py-12 text-center text-gray-400">No customers found.
-                                        Register one to see data here.</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="border border-indigo-200 rounded-xl overflow-hidden bg-white shadow-inner">
+                        <div class="min-h-[280px] max-h-[280px] overflow-y-auto">
+                            <table class="w-full text-left">
+                                <thead class="bg-[#F1F5F9] text-gray-800 text-sm">
+                                    <tr>
+                                        <th class="px-6 py-4 font-bold border-b border-indigo-200">ID</th>
+                                        <th class="px-6 py-4 font-bold border-b border-indigo-200">Name</th>
+                                        <th class="px-6 py-4 font-bold border-b border-indigo-200">Email</th>
+                                        <th class="px-6 py-4 font-bold border-b border-indigo-200">Phone</th>
+                                        <th class="px-6 py-4 font-bold border-b border-indigo-200">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-indigo-200" id="customerTableBody">
+                                    <tr class="">
+                                        <td colspan="5" class="px-6 py-12 text-center text-gray-400">No customers found.
+                                            Register one to see data here.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -389,7 +298,7 @@
                             </div>
                             <div class="flex gap-2 pt-2">
                                 <button
-                                    class="bg-[#4F46E5] text-white px-6 py-2 rounded-lg font-medium flex items-center gap-2 shadow-md hover:bg-indigo-700">
+                                    class="bg-[#4F46E5] text-white px-6 py-2 rounded-lg font-medium flex items-center gap-2 shadow-md hover:bg-indigo-700 cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -398,7 +307,7 @@
                                     Add
                                 </button>
                                 <button
-                                    class="bg-[#D97706] text-white px-6 py-2 rounded-lg font-medium flex items-center gap-2 shadow-md hover:bg-orange-700">
+                                    class="bg-[#D97706] text-white px-6 py-2 rounded-lg font-medium flex items-center gap-2 shadow-md hover:bg-orange-700 cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -407,7 +316,7 @@
                                     Update Selected
                                 </button>
                                 <button type="reset"
-                                    class="border border-gray-300 text-gray-600 px-6 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors">Clear</button>
+                                    class="border border-gray-300 text-gray-600 px-6 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors cursor-pointer">Clear</button>
                             </div>
                         </form>
                     </div>
@@ -418,7 +327,7 @@
                             <input type="text" placeholder="Search by ID, Name, Email or Phone"
                                 class="flex-1 border border-gray-300 rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500">
                             <button
-                                class="bg-[#059669] text-white px-4 py-2 rounded-md hover:bg-emerald-700 flex items-center gap-2">
+                                class="bg-[#059669] text-white px-4 py-2 rounded-md hover:bg-emerald-700 flex items-center gap-2 cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -465,9 +374,11 @@
         <!-- Order Page -->
         <main class="flex-1 p-8 flex flex-col gap-6 overflow-hidden hidden" id="ordersPage">
 
+            <!-- Order Navigation -->
             <div class="flex gap-4 mb-2">
                 <button
-                    class="order-btn flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg font-bold shadow-md" onclick="loadOrderPage('orderPlacePage')">
+                    class="order-btn flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg font-bold shadow-md cursor-pointer"
+                    onclick="loadOrderPage('orderPlacePage')">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path
                             d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 100-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
@@ -476,7 +387,8 @@
                     Place Order
                 </button>
                 <button
-                    class="order-btn flex items-center gap-2 px-4 py-2 bg-white-600 text-gray rounded-lg font-bold shadow-md" onclick="loadOrderPage('orderViewPage')">
+                    class="order-btn flex items-center gap-2 px-4 py-2 bg-white-600 text-gray rounded-lg font-bold shadow-md cursor-pointer"
+                    onclick="loadOrderPage('orderViewPage')">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path
                             d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z">
@@ -492,7 +404,7 @@
                 <div class="grid grid-cols-12 gap-6 items-start">
 
                     <section
-                        class="col-span-12 lg:col-span-7 xl:col-span-8 bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                        class="col-span-12 lg:col-span-7 xl:col-span-8 bg-white p-6 rounded-xl border border-gray-300 shadow-sm">
                         <h2 class="flex items-center gap-2 text-lg font-bold text-gray-800 mb-6">
                             <span class="p-1 bg-indigo-100 rounded text-indigo-600">🏪</span> Available Products
                         </h2>
@@ -507,7 +419,7 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div
-                                class="p-4 border border-gray-100 rounded-xl shadow-sm bg-white flex justify-between items-start hover:shadow-md transition">
+                                class="p-4 border border-gray-200 rounded-xl shadow-md bg-white flex justify-between items-start hover:shadow-xl transition">
                                 <div>
                                     <h3 class="font-bold text-gray-800">Items Name</h3>
                                     <p class="text-xs text-gray-400">Item Codew</p>
@@ -515,7 +427,7 @@
                                     <p class="text-emerald-500 text-[10px] font-semibold">Stock: 25</p>
                                 </div>
                                 <button
-                                    class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-1.5 rounded-md text-xs font-medium flex items-center gap-1">
+                                    class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-1.5 rounded-md text-xs font-medium flex items-center gap-1 cursor-pointer">
                                     + Add
                                 </button>
                             </div>
@@ -523,7 +435,7 @@
                     </section>
 
                     <aside
-                        class="col-span-12 lg:col-span-5 xl:col-span-4 bg-white rounded-xl border-2 border-indigo-100 shadow-lg overflow-hidden flex flex-col min-h-[600px]">
+                        class="col-span-12 lg:col-span-5 xl:col-span-4 bg-white rounded-xl border-1 border-gray-300 shadow-lg overflow-hidden flex flex-col min-h-[600px]">
                         <div class="p-4 bg-indigo-50/50 flex items-center justify-between border-b border-indigo-100">
                             <h3 class="flex items-center gap-2 text-indigo-900 font-bold">
                                 <i class="fas fa-shopping-basket"></i> Current Order
@@ -563,11 +475,11 @@
 
                             <div class="space-y-3">
                                 <button
-                                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition cursor-pointer">
                                     <i class="fas fa-save"></i> Save Customer Order
                                 </button>
                                 <button
-                                    class="w-full border border-red-200 text-red-500 hover:bg-red-50 font-medium py-2 rounded-lg flex items-center justify-center gap-2 transition">
+                                    class="w-full border border-red-200 text-red-500 hover:bg-red-100 font-medium py-2 rounded-lg flex items-center justify-center gap-2 transition cursor-pointer">
                                     <i class="fas fa-trash-alt"></i> Clear Order
                                 </button>
                             </div>
@@ -653,6 +565,7 @@
             </div>
 
         </main>
+
     </div>
 
     <script src="js/script.js"></script>
