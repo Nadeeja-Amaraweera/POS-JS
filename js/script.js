@@ -281,7 +281,7 @@ function deleteCustomer(customerId) {
     console.log("Delete customer with ID:", customerId);
 
     Swal.fire({
-        title: 'Delete Customer?',
+        title: `Delete ${customerId} Customer?`,
         text: 'This action cannot be undone.',
         icon: 'question',
         showCancelButton: true,
@@ -327,16 +327,18 @@ function findCustomer() {
                                     <p class="font-medium">${customer.name}</p>
                                     <p class="text-xs">ID: ${customer.customerId} | ${customer.email} | ${customer.phone}</p>
                                 </div>
+                                <div class="flex gap-2">
                                 <button id="quickUnregisterFromSearch"
                                     class="bg-gray-300 text-gray-700 px-3 py-1 rounded-lg text-xs cursor-pointer hover:bg-gray-400 hover:text-gray-900 transition duration-200 ease-in-out hover:scale-102"
                                     onclick="editCustomer('${customer.customerId}')">
-                                    <i class="fas fa-user-edit"></i> Edit
+                                    <i class="fa-solid fa-pen-to-square"></i> Edit
                                 </button>
                                 <button id="quickUnregisterFromSearch"
                                     class="bg-rose-100 text-rose-700 px-3 py-1 rounded-lg text-xs cursor-pointer hover:bg-rose-200 transition duration-200 ease-in-out hover:scale-102"
                                     onclick="deleteCustomer('${customer.customerId}')">
-                                    <i class="fas fa-user-minus"></i> Unregister
+                                    <i class="fa-solid fa-trash"></i> Delete
                                 </button>
+                                </div>
                                 
                             </div>
             `;
@@ -482,7 +484,7 @@ function deleteItem(itemId) {
     console.log("Delete item with ID:", itemId);
 
     Swal.fire({
-        title: 'Delete Item?',
+        title: `Delete ${itemId} Item?`,
         text: 'This action cannot be undone.',
         icon: 'question',
         showCancelButton: true,
@@ -538,16 +540,18 @@ function findItem() {
                                     <p class="font-medium">${item.itemName}</p>
                                     <p class="text-xs">ID: ${item.itemId} | Price: $${item.itemPrice} | Qty: ${item.itemQuantity}</p>
                                 </div>
+                                <div class="flex gap-2">
                                 <button id="quickUnregisterFromSearch"
                                     class="bg-gray-300 text-gray-700 px-3 py-1 rounded-lg text-xs cursor-pointer hover:bg-gray-400 hover:text-gray-900 transition duration-200 ease-in-out hover:scale-102"
                                     onclick="editItem('${item.itemId}')">
-                                    <i class="fas fa-user-edit"></i> Edit
+                                    <i class="fa-solid fa-pen-to-square"></i> Edit
                                 </button>
                                 <button id="quickUnregisterFromSearch"
                                     class="bg-rose-100 text-rose-700 px-3 py-1 rounded-lg text-xs cursor-pointer hover:bg-rose-200 transition duration-200 ease-in-out hover:scale-102"
                                     onclick="deleteItem('${item.itemId}')">
-                                    <i class="fas fa-user-minus"></i> Delete
+                                    <i class="fa-solid fa-trash"></i> Delete
                                 </button>
+                                </div>
                                 
                             </div>
             `;
