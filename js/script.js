@@ -224,6 +224,7 @@ function loadCustomers() {
         `;
         tableBody.appendChild(row);
     });
+    countCustomers();
 }
 
 // Edit Customer
@@ -314,8 +315,13 @@ function confirmDelete(customerId) {
 // Search Customer
 function findCustomer() {
     const query = document.getElementById("customerSearch").value.toLowerCase();
-    const tableBody = document.getElementById("customerTableBody");
-    tableBody.innerHTML = ""; // Clear existing rows
+    // const tableBody = document.getElementById("customerTableBody");
+    // tableBody.innerHTML = ""; // Clear existing rows
+    const resultDiv = document.getElementById("CustomerSearchResultArea"); 
+
+    let results = "";
+    let found = false;
+
     customers.forEach(customer => {
         if (
             customer.customerId.toLowerCase().includes(query) ||
@@ -323,33 +329,48 @@ function findCustomer() {
             customer.email.toLowerCase().includes(query) ||
             customer.phone.includes(query)
         ) {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td class="px-4 py-2">${customer.customerId}</td>
-                <td class="px-4 py-2">${customer.name}</td>
-                <td class="px-4 py-2">${customer.email}</td>
-                <td class="px-4 py-2">${customer.phone}</td>
-                <td class="px-4 py-2">
-                <div class="flex gap-4">
-                    <div class="cursor-pointer text-indigo-500 hover:text-gray-700" onclick="editCustomer('${customer.customerId}')">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                        <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-                        <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-                        </svg>
-                    </div>
-
-                    <div class="cursor-pointer text-red-500 hover:text-gray-700" onclick="deleteCustomer('${customer.customerId}')">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                        <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                </div>
-            </td>
+            found = true;
+            results += `
+                <div class="flex justify-between items-center flex-wrap border p-3 rounded-lg">
+                                <div>
+                                    <p class="font-medium">${customer.name}</p>
+                                    <p class="text-xs">ID: ${customer.customerId} | ${customer.email} | ${customer.phone}</p>
+                                </div>
+                                <button id="quickUnregisterFromSearch"
+                                    class="bg-gray-300 text-gray-700 px-3 py-1 rounded-lg text-xs cursor-pointer hover:bg-gray-400 hover:text-gray-900 transition duration-200 ease-in-out hover:scale-102"
+                                    onclick="editCustomer('${customer.customerId}')">
+                                    <i class="fas fa-user-edit"></i> Edit
+                                </button>
+                                <button id="quickUnregisterFromSearch"
+                                    class="bg-rose-100 text-rose-700 px-3 py-1 rounded-lg text-xs cursor-pointer hover:bg-rose-200 transition duration-200 ease-in-out hover:scale-102"
+                                    onclick="deleteCustomer('${customer.customerId}')">
+                                    <i class="fas fa-user-minus"></i> Unregister
+                                </button>
+                                
+                            </div>
             `;
-            tableBody.appendChild(row);
-        } else {
-            showError("No customers found matching the search criteria.");
+            console.log("Customer found:", customer.customerId);
         }
     });
+
+    if (found) {
+        resultDiv.classList.remove("hidden");
+        resultDiv.innerHTML = results;
+    } else {
+        resultDiv.classList.remove("hidden"); 
+        resultDiv.innerHTML = "<p class='text-sm text-gray-500'>No customers found matching the search criteria.</p>";
+    }
 }
+
+// Count Customers
+function countCustomers() {
+    const count = customers.length;
+    if (count === 0) {
+        document.getElementById("customerCount").textContent = "No customers registered";
+    } else {
+        document.getElementById("customerCount").textContent = "All Customers " + count;
+    }
+}
+window.onload = countCustomers;
+
 
