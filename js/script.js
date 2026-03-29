@@ -265,6 +265,7 @@ function updateCustomer() {
         if (index !== -1) {
             customers[index] = { ...customers[index], name, email, phone };
             loadCustomers();
+            findCustomer(); // Refresh search results if applicable
             Swal.fire({
                 icon: 'success',
                 title: 'Customer Updated',
@@ -272,7 +273,6 @@ function updateCustomer() {
                 confirmButtonColor: '#3085d6'
             });
         }
-        loadCustomers();
     }
 }
 
@@ -294,6 +294,7 @@ function deleteCustomer(customerId) {
             // User clicked Yes
             customers.splice(customers.findIndex(c => c.customerId === customerId), 1);
             loadCustomers();
+            findCustomer(); // Refresh search results if applicable
 
             Swal.fire('Deleted!', 'The customer has been deleted.', 'success');
         } else {
@@ -476,6 +477,7 @@ function updateItem() {
             });
         }
         loadItems();
+        findItem(); // Refresh search results if applicable
     }
 }
 
@@ -497,6 +499,7 @@ function deleteItem(itemId) {
             // User clicked Yes
             items.splice(items.findIndex(i => i.itemId === itemId), 1);
             loadItems();
+            findItem(); // Refresh search results if applicable
 
             Swal.fire('Deleted!', 'The item has been deleted.', 'success');
         } else {
@@ -522,6 +525,12 @@ function findItem() {
     // const tableBody = document.getElementById("customerTableBody");
     // tableBody.innerHTML = ""; // Clear existing rows
     const resultDiv = document.getElementById("ItemSearchResultArea"); 
+    
+    if(!query){
+        resultDiv.classList.add("hidden");
+        showError("Please enter a search term.");
+        return;
+    }
 
     let results = "";
     let found = false;
