@@ -28,21 +28,13 @@ function saveCustomer(event) {
         // Clear the form after saving
         console.log("Current Customers:", customers);
         loadCustomers();
+        clearFields("customerName", "customerEmail", "customerPhone");
     }
-}
-
-// Clear multiple fields by IDs
-function clearFields(...fieldIds) {
-    fieldIds.forEach(id => {
-        const field = document.getElementById(id);
-        if (field) {
-            field.value = "";
-        }
-    });
 }
 
 // Load Customers in Table
 function loadCustomers() {
+    event.preventDefault(); // Prevent form submission
     const tableBody = document.getElementById("customerTableBody");
     tableBody.innerHTML = ""; // Clear existing rows
     customers.forEach(customer => {
@@ -97,7 +89,8 @@ function editCustomer(customerId) {
 }
 
 // Update Customer
-function updateCustomer() {
+function updateCustomer(event) {
+    event.preventDefault(); // Prevent form submission
     const customerId = document.getElementById("customerId").value;
     const name = document.getElementById("customerName").value;
     const email = document.getElementById("customerEmail").value;
@@ -113,7 +106,7 @@ function updateCustomer() {
         if (index !== -1) {
             customers[index] = { ...customers[index], name, email, phone };
             loadCustomers();
-            findCustomer(); // Refresh search results if applicable
+            clearFields("customerName", "customerEmail", "customerPhone", "customerId");
             Swal.fire({
                 icon: 'success',
                 title: 'Customer Updated',
@@ -142,7 +135,7 @@ function deleteCustomer(customerId) {
             // User clicked Yes
             customers.splice(customers.findIndex(c => c.customerId === customerId), 1);
             loadCustomers();
-            findCustomer(); // Refresh search results if applicable
+            findCustomer(event); // Refresh search results if applicable
 
             Swal.fire('Deleted!', 'The customer has been deleted.', 'success');
         } else {
@@ -153,7 +146,8 @@ function deleteCustomer(customerId) {
 }
 
 // Search Customer
-function findCustomer() {
+function findCustomer(event) {
+    event.preventDefault(); // Prevent form submission
     const query = document.getElementById("customerSearch").value.toLowerCase();
     // const tableBody = document.getElementById("customerTableBody");
     // tableBody.innerHTML = ""; // Clear existing rows
@@ -161,6 +155,12 @@ function findCustomer() {
 
     let results = "";
     let found = false;
+
+    if(!query){
+        resultDiv.classList.add("hidden");
+        showError("Please enter a search term.");
+        return;
+    }
 
     customers.forEach(customer => {
         if (
@@ -206,6 +206,7 @@ function findCustomer() {
 
 // Count Customers
 function countCustomers() {
+    event.preventDefault(); // Prevent form submission
     const count = customers.length;
     if (count === 0) {
         document.getElementById("customerCount").textContent = "No customers registered";
@@ -217,7 +218,8 @@ function countCustomers() {
 
 // Save Item
 const items = [];
-function saveItem() {
+function saveItem(event) {
+    event.preventDefault(); // Prevent form submission
     const itemName = document.getElementById("itemName").value;
     const itemPrice = document.getElementById("itemPrice").value;
     const itemQuantity = document.getElementById("itemQuantity").value;
@@ -247,6 +249,7 @@ function saveItem() {
 
 // Load Items in Table
 function loadItems() {
+    event.preventDefault(); // Prevent form submission
     const tableBody = document.getElementById("itemTableBody");
     tableBody.innerHTML = ""; // Clear existing rows
     items.forEach(item => {
@@ -301,7 +304,8 @@ function editItem(itemId) {
 }
 
 // Update Item
-function updateItem() {
+function updateItem(event) {
+    event.preventDefault(); // Prevent form submission
     const itemId = document.getElementById("itemId").value;
     const itemName = document.getElementById("itemName").value;
     const itemPrice = document.getElementById("itemPrice").value;
@@ -359,6 +363,7 @@ function deleteItem(itemId) {
 
 // Count Items
 function countItems() {
+    event.preventDefault(); // Prevent form submission
     const count = items.length;
     if (count === 0) {
         document.getElementById("itemCount").textContent = "No items added";
@@ -368,7 +373,8 @@ function countItems() {
 }
 
 // Search Item
-function findItem() {
+function findItem(event) {
+    event.preventDefault(); // Prevent form submission
     const query = document.getElementById("itemSearch").value.toLowerCase();
     // const tableBody = document.getElementById("customerTableBody");
     // tableBody.innerHTML = ""; // Clear existing rows

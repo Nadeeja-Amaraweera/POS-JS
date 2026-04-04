@@ -142,3 +142,13 @@ function selectRole(btn) {
     document.querySelectorAll(".role-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
 }
+
+// Clear multiple fields by IDs
+function clearFields(...fieldIds) {
+    fieldIds.forEach(id => {
+        const field = document.getElementById(id);
+        if (field) {
+            field.value = "";
+        }
+    });
+}
