@@ -36,7 +36,6 @@ function login() {
 
     if (username === "a" && password === "a") {
         showpage("loginPage", "dashPage");
-        loadPage('customerPage'); // Ensure the customer page is shown when dashboard loads
     } else {
         showError("Invalid username or password. Please try again.");
     }
@@ -44,13 +43,8 @@ function login() {
 
 // Change page
 function showpage(hidepage, showpage) {
-    document.getElementById(hidepage).style.display = "none";
-    document.getElementById(showpage).style.display = "flex";
-
-    if (showpage === "dashPage") {
-        // showpage("dashPage", "customerPage"); // Load default page in dashboard
-            loadPage("customerPage"); // Load default page in dashboard
-    }
+    document.getElementById(hidepage).classList.add("hidden");
+    document.getElementById(showpage).classList.remove("hidden");
 }
 
 //  Load specific page in dashboard
@@ -63,7 +57,6 @@ function loadPage(pageId) {
         const el = document.getElementById(id);
         if (el) {
             el.classList.add("hidden");
-            el.style.display = "none"; // Extra safety to ensure no layout gaps
         }
     });
 
@@ -72,7 +65,6 @@ function loadPage(pageId) {
     if (target) {
         target.classList.remove("hidden");
         // Use 'flex' for the dashboard to keep the sidebar layout intact
-        target.style.display = (pageId === 'loginPage') ? "flex" : "flex";
     }
 
 

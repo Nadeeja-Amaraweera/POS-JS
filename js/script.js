@@ -1,7 +1,9 @@
 const customers = [];
 
 // Save Customer
-function saveCustomer() {
+function saveCustomer(event) {
+    event.preventDefault(); // Prevent form submission
+
     const name = document.getElementById("customerName").value;
     const email = document.getElementById("customerEmail").value;
     const phone = document.getElementById("customerPhone").value;
