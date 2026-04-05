@@ -41,6 +41,12 @@ function login() {
     }
 }
 
+// logout from dashboard
+function logout() {
+    showpage("dashPage", "loginPage");
+    clearFields("usernameField", "passwordField");
+}
+
 // Change page
 function showpage(hidepage, showpage) {
     document.getElementById(hidepage).classList.add("hidden");
@@ -113,12 +119,14 @@ function loadOrderPage(pageId) {
     // Update the active state of the order buttons
     const orderButtons = document.querySelectorAll('.order-btn');
     orderButtons.forEach(button => {
-        if (button.getAttribute('onclick').includes(pageId)) {
-            button.classList.add('bg-indigo-600', 'text-white');
-        } else {
-            button.classList.remove('bg-indigo-600', 'text-white');
-        }
-    });
+    if (button.getAttribute('onclick').includes(pageId)) {
+        button.classList.remove('bg-white/10');
+        button.classList.add('bg-[#4F46E5]');
+    } else {
+        button.classList.remove('bg-[#4F46E5]');
+        button.classList.add('bg-white/10');
+    }
+});
 
 }
 

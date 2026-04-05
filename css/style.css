@@ -1,85 +1,121 @@
 .error-msg-box {
-    transform: translate(-50%, -600%);  /* HIDDEN on page load */
-    transition: transform 0.5s ease-in-out;
+  transform: translate(-50%, -600%);
+  /* HIDDEN on page load */
+  transition: transform 0.5s ease-in-out;
 }
+
 * {
   font-family: 'Nunito', sans-serif;
- }
- 
-    body {
-      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 40%, #a78bfa 100%);
-      min-height: 100vh;
-    }
-  
+}
 
- 
-    /* Card entrance animation */
-    .card {
-      animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(32px) scale(0.97); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
- 
-    /* Logo bounce */
-    .logo-wrap { animation: bounceIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both; }
-    @keyframes bounceIn {
-      from { opacity: 0; transform: scale(0.5); }
-      to   { opacity: 1; transform: scale(1); }
-    }
- 
-    /* Input focus ring */
-    .pos-input {
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .pos-input:focus {
-      outline: none;
-      border-color: #6366f1;
-      box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
-    }
- 
-    /* Role button */
-    .role-btn {
-      transition: all 0.18s ease;
-      border: 2px solid #e5e7eb;
-      cursor: pointer;
-    }
-    .role-btn:hover {
-      border-color: #6366f1;
-      background: #f5f3ff;
-    }
-    .role-btn.active {
-      border-color: #6366f1;
-      background: #ede9fe;
-      box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
-    }
- 
-    /* Sign-in button */
-    .signin-btn {
-      background: linear-gradient(90deg, #4f46e5, #7c3aed);
-      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
-    }
-    .signin-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(99,102,241,0.45);
-      filter: brightness(1.08);
-    }
-    .signin-btn:active {
-      transform: translateY(0);
-      box-shadow: none;
-    }
- 
-    /* Custom checkbox */
-    .custom-check {
-      accent-color: #6366f1;
-      width: 16px; height: 16px;
-      cursor: pointer;
-    }
- 
-    /* Password toggle */
-    .toggle-pw { cursor: pointer; transition: color 0.15s; }
-    .toggle-pw:hover { color: #6366f1; }
+body {
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  min-height: 100vh;
+}
 
-    /* Dashboard Page */
-    
+
+
+/* Card entrance animation */
+.card {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Logo bounce */
+.logo-wrap {
+  animation: bounceIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+}
+
+@keyframes bounceIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Input focus ring */
+.pos-input {
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.pos-input:focus {
+  outline: none;
+  border-color: #2c5364;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* Role button */
+.role-btn {
+  transition: all 0.18s ease;
+  border: 2px solid #e5e7eb;
+  cursor: pointer;
+}
+
+.role-btn:hover {
+  border-color: #6366f1;
+  background: #f5f3ff;
+}
+
+.role-btn.active {
+  border-color: #6366f1;
+  background: #ede9fe;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* Sign-in button */
+.signin-btn {
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  color: #fff;
+  border: none;
+  padding: 0.6em 1.5em;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.signin-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(44, 83, 100, 0.45); /* matches the dark gradient tones */
+  filter: brightness(1.08);
+}
+
+.signin-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Custom checkbox */
+.custom-check {
+  accent-color: #6366f1;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Password toggle */
+.toggle-pw {
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.toggle-pw:hover {
+  color: #6366f1;
+}
+
+/* Dashboard Page */
