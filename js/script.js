@@ -1,5 +1,7 @@
 const customers = [];
 
+console.log(customers.length);
+
 // Save Customer
 function saveCustomer(event) {
   event.preventDefault(); // Prevent form submission
@@ -33,9 +35,8 @@ function saveCustomer(event) {
 
 // Load Customers in Table
 function loadCustomers() {
-  event.preventDefault(); // Prevent form submission
-  const tableBody = document.getElementById("customerTableBody");
-  tableBody.innerHTML = ""; // Clear existing rows
+  const customertableBody = document.getElementById("customerTableBody");
+  customertableBody.innerHTML = ""; // Clear existing rows
   customers.forEach((customer) => {
     const row = document.createElement("tr");
     row.classList.add("hover:bg-gray-700", "text-white");
@@ -61,8 +62,17 @@ function loadCustomers() {
                 </div>
             </td>
         `;
-    tableBody.appendChild(row);
+    customertableBody.appendChild(row);
   });
+  if (customers.length === 0) {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td colspan="5" class="px-6 py-12 text-center text-gray-400">
+        No customers found. Add one to see data here.
+      </td>
+    `;
+    customertableBody.appendChild(row);
+  }
   countCustomers();
 }
 
@@ -257,9 +267,9 @@ function saveItem(event) {
 // Load Items in Table
 function loadItems() {
   event.preventDefault(); // Prevent form submission
-  const tableBody = document.getElementById("itemTableBody");
+  const itemtableBody = document.getElementById("itemTableBody");
+  itemtableBody.innerHTML = ""; // Clear existing rows
   items.forEach((item) => {
-    tableBody.innerHTML = ""; // Clear existing rows
     const row = document.createElement("tr");
     row.classList.add("hover:bg-gray-700", "text-white");
     row.innerHTML = `
@@ -284,8 +294,17 @@ function loadItems() {
                 </div>
             </td>
         `;
-    tableBody.appendChild(row);
+    itemtableBody.appendChild(row);
   });
+  if (items.length === 0) {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td colspan="5" class="px-6 py-12 text-center text-gray-400">
+        No items found. Add one to see data here.
+      </td>
+    `;
+    itemtableBody.appendChild(row);
+  }
   countItems();
   loadAllItemsForOrderPage(); // Refresh order page item list
 }
@@ -443,8 +462,6 @@ function findItem(event) {
   }
 }
 
-console.log(items);
-
 function loadAllItemsForOrderPage() {
   const list = document.getElementById("orderItemList");
   list.innerHTML = ""; // important: clear old items!
@@ -453,9 +470,9 @@ function loadAllItemsForOrderPage() {
     const card = document.createElement("div");
 
     card.className =
-  "p-4 border border-[#3a4a5a] rounded-xl shadow-md bg-white/5 flex justify-between items-start hover:shadow-xl transition duration-200 ease-in-out";
+      "p-4 border border-[#3a4a5a] rounded-xl shadow-md bg-white/5 flex justify-between items-start hover:shadow-xl transition duration-200 ease-in-out";
 
-card.innerHTML = `
+    card.innerHTML = `
     <div>
         <h3 class="font-bold text-white text-sm">${item.itemName}</h3>
         <p class="text-xs text-gray-300 mt-1">Item Code: ${item.itemId}</p>
@@ -464,7 +481,7 @@ card.innerHTML = `
     </div>
     <button 
         class="bg-[#4F46E5] hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-xs font-medium flex items-center gap-1 shadow-md transition duration-200 ease-in-out hover:scale-102"
-        onclick="addToCard('${item.itemId}')">
+        onclick="addToCart('${item.itemId}')">
         + Add
     </button>
 `;
@@ -473,47 +490,54 @@ card.innerHTML = `
   });
 }
 
-function addToCard(itemID) {
-  console.log("Add to card:", itemID);
+function addToCart(itemID) {
+  console.log("Add to cart:", itemID);
   // Find the item in the items array
   const item = items.find((i) => i.itemId === itemID);
+
+  const list = document.getElementById("cartContent");
+  list.innerHTML = ""; // Clear old cart items (for testing, remove this in real implementation)
   if (item) {
-    document.addEventListener("click", function (e) {
-      if (e.target.classList.contains("addBtn")) {
-        // 1️⃣ Hide empty message
-        const emptyMsg = document.getElementById("emptyOrderMessage");
-        if (emptyMsg) emptyMsg.style.display = "none";
+    const cartItem = document.createElement("div");
+    cartItem.className =
+      "bg-white/10 p-2 shadow-sm w-full";
 
-        // Your existing code here:
-        const itemId = e.target.dataset.id;
-        const item = items.find((i) => i.itemId === itemId);
+    cartItem.innerHTML = `
+    
+    <h3 class="text-md font-bold text-white mb-2">${item.itemName}</h3>
+    <h4 class="text-sm text-gray-400 mb-2">Item Code: ${item.itemId}</h4>
+    <div class="flex justify-between items-center mb-1">
+        <div>
+            <button class="qtyMinus bg-gray-900/30 hover:bg-gray-900 px-2 rounded cursor-pointer"
+                data-id="${item.itemId}">-</button>
+            <span class="qty text-sm font-semibold text-white" data-id="${item.itemId}">1</span>
+            <button class="qtyPlus bg-gray-900/30 hover:bg-gray-900 px-2 rounded cursor-pointer"
+                data-id="${item.itemId}">+</button>
+        </div>
 
-        const parent = e.target.parentElement;
-        e.target.remove();
+        <span><span>Item Price:</span> <span
+                class="text-sm text-gray-400 mr-2">Rs:${item.itemPrice}</span></span>
 
-        parent.insertAdjacentHTML(
-          "beforeend",
-          `
-            <div class="flex flex-col items-end">
-                <p class="text-gray-700 text-xs">Added</p>
-                <p class="text-sm font-bold text-indigo-600">Rs ${item.itemPrice}</p>
+        <span class="text-md font-semibold text-white">
+            <span class="itemTotal">Rs:${item.itemPrice}</span>
+            <i class="fa-solid fa-trash-can cursor-pointer text-red-500"></i>
+        </span>
+    </div>
+    <hr class="border-gray-700/40" />
+                            
+`;
 
-                <div class="flex items-center gap-2 mt-2">
-                    <button class="qtyMinus bg-gray-200 px-2 rounded" data-id="${item.itemId}">-</button>
-                    <span class="qty text-sm font-semibold" data-id="${item.itemId}">1</span>
-                    <button class="qtyPlus bg-gray-200 px-2 rounded" data-id="${item.itemId}">+</button>
-                </div>
-            </div>
-        `,
-        );
-      }
-    });
+    list.appendChild(cartItem);
+    console.log("Item details:", item.itemName, item.itemPrice);
+
+
   } else {
     showError("Item not found.");
   }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  loadCustomers(); // load from memory / localStorage
   loadItems(); // load from memory / localStorage
   console.log(items); // now NOT empty
   loadAllItemsForOrderPage(); // display items
