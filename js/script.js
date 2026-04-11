@@ -462,6 +462,7 @@ function findItem(event) {
   }
 }
 
+// Load Items for Order Page
 function loadAllItemsForOrderPage() {
   const list = document.getElementById("orderItemList");
   list.innerHTML = ""; // important: clear old items!
@@ -490,14 +491,49 @@ function loadAllItemsForOrderPage() {
   });
 }
 
+// Add to cart
+const cart = [];
 function addToCart(itemID) {
-  console.log("Add to cart:", itemID);
   // Find the item in the items array
   const item = items.find((i) => i.itemId === itemID);
+  const stockItem = items.find(i => i.itemId === itemID);
+
+
+  if (!item) {
+    showError("Item not found!");
+    return;
+  }
+
+  // Check if item is already in cart
+  const existingItem = cart.find(i => i.itemId === itemID);
+
+  if (existingItem) {
+    // If item is already in cart, increase its quantity
+    if (stockItem.itemQuantity > existingItem.quantity) {
+      existingItem.quantity++;
+    } else {
+      showError("Cannot add more than available stock!");
+    }
+  } else {
+    // If item is not in cart, add it with quantity 1
+    cart.push({ ...item, quantity: 1 });
+  }
+
+  renderCart(cart); // Update cart display
+  countCartItems(); // Update cart count
+
+  console.log("Current Cart:", cart);
+
+}
+
+// Render Cart
+function renderCart(cartItems) {
 
   const list = document.getElementById("cartContent");
   list.innerHTML = ""; // Clear old cart items (for testing, remove this in real implementation)
-  if (item) {
+
+  cartItems.forEach(item => {
+
     const cartItem = document.createElement("div");
     cartItem.className =
       "bg-white/10 p-2 shadow-sm w-full";
@@ -510,7 +546,7 @@ function addToCart(itemID) {
         <div>
             <button class="qtyMinus bg-gray-900/30 hover:bg-gray-900 px-2 rounded cursor-pointer"
                 data-id="${item.itemId}">-</button>
-            <span class="qty text-sm font-semibold text-white" data-id="${item.itemId}">1</span>
+            <span class="qty text-sm font-semibold text-white" data-id="${item.itemId}">${item.quantity}</span>
             <button class="qtyPlus bg-gray-900/30 hover:bg-gray-900 px-2 rounded cursor-pointer"
                 data-id="${item.itemId}">+</button>
         </div>
@@ -519,21 +555,55 @@ function addToCart(itemID) {
                 class="text-sm text-gray-400 mr-2">Rs:${item.itemPrice}</span></span>
 
         <span class="text-md font-semibold text-white">
-            <span class="itemTotal">Rs:${item.itemPrice}</span>
-            <i class="fa-solid fa-trash-can cursor-pointer text-red-500"></i>
+            <span class="itemTotal">Rs:${item.itemPrice * item.quantity}</span>
+            <i class="fa-solid fa-trash-can cursor-pointer text-red-500" data-id="${item.itemId}"></i>
         </span>
     </div>
     <hr class="border-gray-700/40" />
                             
 `;
-
     list.appendChild(cartItem);
-    console.log("Item details:", item.itemName, item.itemPrice);
+  });
+}
 
+// update cart quantity
+document.getElementById("cartContent").addEventListener("click", (e) => {
+  const id = e.target.dataset.id;
+  const cartItem = cart.find(i => i.itemId === id);
+  const stockItem = items.find(i => i.itemId === id);
 
-  } else {
-    showError("Item not found.");
+  if (e.target.classList.contains("qtyMinus")) {
+    if (cartItem && cartItem.quantity > 0) cartItem.quantity--;
+    if (cartItem && cartItem.quantity === 0) {
+      // Optionally, you can remove the item from the cart if quantity reaches 0
+      cart.splice(cart.findIndex(i => i.itemId === id), 1);
+    }
   }
+
+  if (e.target.classList.contains("qtyPlus")) {
+    if (stockItem.itemQuantity > cartItem.quantity) {
+      cartItem.quantity++;
+    } else {
+      showError("Cannot add more than available stock!");
+    }
+  }
+
+  if (e.target.classList.contains("fa-trash-can")) {
+    if (cartItem) {
+      cart.splice(cart.findIndex(i => i.itemId === id), 1);
+    }
+  }
+
+  renderCart(cart);
+  countCartItems();
+
+  console.log("Current Cart:", cart);
+
+});
+
+// Count Cart Items
+function countCartItems() {
+document.getElementById('cartCount').textContent = cart.length;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -542,3 +612,4 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log(items); // now NOT empty
   loadAllItemsForOrderPage(); // display items
 });
+
