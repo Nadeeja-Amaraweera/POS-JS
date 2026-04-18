@@ -30,6 +30,7 @@ function saveCustomer(event) {
     console.log("Current Customers:", customers);
     loadCustomers();
     clearFields("customerName", "customerEmail", "customerPhone");
+    loadCustomerOptions(); // Refresh customer options in order page
   }
 }
 
@@ -606,10 +607,188 @@ function countCartItems() {
 document.getElementById('cartCount').textContent = cart.length;
 }
 
+const order = []; // to store placed orders
+
+// Place Order
+function placeOrder() {
+  if (cart.length === 0) {
+    showError("Your cart is empty!");
+    return;
+  }
+
+  Swal.fire({
+    title: "Confirm Order",
+    text: "Are you sure you want to place this order?",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      
+      // Create order object
+      const orderId = "ORD" + String(order.length + 1).padStart(3, "0");
+      const customerId = document.getElementById("customerInput").value;
+      const customer = customers.find(c => c.customerId === customerId);
+      const orderItems = cart.map(i => ({
+        itemId: i.itemId,
+        itemName: i.itemName,
+        quantity: i.quantity,
+        price: i.itemPrice,
+        total: i.itemPrice * i.quantity
+      }));
+      const totalAmount = orderItems.reduce((sum, i) => sum + i.total, 0);
+
+      const newOrder = {
+        orderId,
+        customerId,
+        customerName: customer ? customer.name : "Unknown",
+        customerPhone: customer ? customer.phone : "Unknown",
+        items: orderItems,
+        totalAmount,
+        date: new Date().toLocaleString()
+      };
+
+      order.push(newOrder); // Save the order
+
+      console.log("Order", order);
+
+      Swal.fire({
+        icon: "success",
+        title: "Order Placed",
+        text: `Your order ${orderId} has been placed successfully!`,
+        confirmButtonColor: "#3085d6",
+      });
+      updateStockAfterOrder();
+      loadPastedOrder(); // Refresh order list to show new order
+    }
+  });
+}
+
+function loadPastedOrder() { // Load orders from memory / localStorage
+  const orderTableBody = document.getElementById("OrderTableBody");
+  orderTableBody.innerHTML = ""; // Clear existing rows
+  order.forEach((order) => {
+    const row = document.createElement("tr");
+    row.classList.add("hover:bg-gray-700", "text-white");
+    row.innerHTML = `
+            <td class="px-4 py-2">${order.orderId}</td>
+            <td class="px-4 py-2">${order.date}</td>
+            <td class="px-4 py-2">${order.customerId}</td>
+            <td class="px-4 py-2">${order.customerName}</td>
+            <td class="px-4 py-2">${order.customerPhone}</td>
+            <td class="px-4 py-2">LKR ${order.totalAmount.toFixed(2)}</td>
+            <td class="px-4 py-2 text-right">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white px-3 py-1 rounded" onclick="viewOrder('${order.orderId}')">
+                    View
+                </button>
+            </td>
+        `;
+    orderTableBody.appendChild(row);
+  });
+
+  if (order.length === 0) {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td colspan="5" class="px-6 py-12 text-center text-gray-400">
+        No orders found. Place an order to see data here.
+      </td>
+    `;
+    orderTableBody.appendChild(row);
+  }
+}
+
+// View Order Details
+function viewOrder(orderId) {
+  const orderDetails = order.find(o => o.orderId === orderId);
+  if (!orderDetails) {
+    showError("Order not found!");
+    return;
+  }
+
+  let itemsHtml = "";
+  orderDetails.items.forEach(i => {
+    itemsHtml += `
+      <tr>
+        <td class="px-4 py-2">${i.itemName}</td>
+        <td class="px-4 py-2">${i.quantity}</td>
+        <td class="px-4 py-2">LKR ${i.price}</td>
+        <td class="px-4 py-2">LKR ${i.total}</td>
+      </tr>
+    `;
+  });
+
+  Swal.fire({
+    title: `Order ${orderId} Details`,
+    html: `
+      <p><strong>Customer:</strong> ${orderDetails.customerName} (${orderDetails.customerPhone})  </p>
+      <p><strong>Date:</strong> ${orderDetails.date}</p>
+      <table class="min-w-full text-left text-sm">
+        <thead>
+          <tr>
+            <th class="px-4 py-2">Item</th>
+            <th class="px-4 py-2">Quantity</th>
+            <th class="px-4 py-2">Price</th>
+            <th class="px-4 py-2">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${itemsHtml}
+        </tbody>
+      </table>
+    `
+  });
+}
+
+// update stock after order placement
+function updateStockAfterOrder() {
+  cart.forEach(cartItem => {
+    const stockItem = items.find(i => i.itemId === cartItem.itemId);
+    if (stockItem) {
+      stockItem.itemQuantity -= cartItem.quantity;
+    }
+  });
+  cart.length = 0; // Clear cart after order is placed
+  const list = document.getElementById("cartContent");
+  list.innerHTML = ""; // Clear old cart items (for testing, remove this in real implementation)
+  console.log("Cart cleared after order placement. Current Cart:", cart);
+  loadItems(); // Refresh item list to reflect updated stock
+  loadAllItemsForOrderPage(); // Refresh order page item list
+  countCartItems(); // Update cart count
+}
+
+// Customer options for order page
+function loadCustomerOptions() {
+  const select = document.getElementById("customerInput");
+  const phoneInput = document.getElementById("customerPhoneInput");
+
+  // clear old options
+  select.innerHTML = `<option value="" class="text-gray-900">Select Customer</option>`;
+
+  customers.forEach(c => {
+    const option = document.createElement("option");
+    option.classList.add("text-sm", "text-gray-900");
+    option.value = c.customerId;   // store ID
+    option.textContent = `${c.name} (${c.customerId})`;   // show name and ID
+    select.appendChild(option);
+  });
+
+  // Update phone input when customer is selected
+  select.addEventListener("change", () => {
+    const selectedCustomer = customers.find(c => c.customerId === select.value);
+    if (selectedCustomer) {
+      phoneInput.value = selectedCustomer.phone;
+    } else {
+      phoneInput.value = "";
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   loadCustomers(); // load from memory / localStorage
   loadItems(); // load from memory / localStorage
+  loadPastedOrder(); // Load pasted orders
   console.log(items); // now NOT empty
   loadAllItemsForOrderPage(); // display items
+  loadCustomerOptions(); // load customer options
 });
-
