@@ -740,6 +740,55 @@ function viewOrder(orderId) {
   });
 }
 
+// Search Order
+function findOrder(event) {
+  event.preventDefault();
+  const query = document.getElementById("orderSearch").value.toLowerCase();
+  const orderTableBody = document.getElementById("OrderTableBody");
+  orderTableBody.innerHTML = ""; // Clear existing rows
+
+  if (!query) {
+    showError("Please enter a search term.");
+    loadPastedOrder(); // Reload all orders if search is cleared
+    return;
+  }
+
+  
+  let found = false;
+
+  order.forEach((order) => {
+    if (order.orderId.toLowerCase().includes(query) || order.customerName.toLowerCase().includes(query) || order.customerPhone.includes(query)) {
+      const row = document.createElement("tr");
+      row.classList.add("hover:bg-gray-700", "text-white");
+      row.innerHTML = `
+        <td class="px-4 py-2">${order.orderId}</td>
+        <td class="px-4 py-2">${order.date}</td>
+        <td class="px-4 py-2">${order.customerId}</td>
+        <td class="px-4 py-2">${order.customerName}</td>
+        <td class="px-4 py-2">${order.customerPhone}</td>
+        <td class="px-4 py-2">LKR ${order.totalAmount.toFixed(2)}</td>
+        <td class="px-4 py-2 text-right">
+          <button class="bg-blue-500 hover:bg-blue-700 text-white px-3 py-1 rounded" onclick="viewOrder('${order.orderId}')">
+            View
+          </button>
+        </td>
+      `;
+      orderTableBody.appendChild(row);
+      found = true;
+    }
+  });
+
+  if (!found) {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td colspan="5" class="px-6 py-12 text-center text-gray-400">
+        No orders found matching your search.
+      </td>
+    `;
+    orderTableBody.appendChild(row);
+  }
+}
+
 // update stock after order placement
 function updateStockAfterOrder() {
   cart.forEach(cartItem => {
