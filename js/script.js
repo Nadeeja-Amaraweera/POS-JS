@@ -679,7 +679,7 @@ function loadPastedOrder() { // Load orders from memory / localStorage
             <td class="px-4 py-2">${order.customerPhone}</td>
             <td class="px-4 py-2">LKR ${order.totalAmount.toFixed(2)}</td>
             <td class="px-4 py-2 text-right">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white px-3 py-1 rounded" onclick="viewOrder('${order.orderId}')">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white px-3 py-1 rounded transition " onclick="viewOrder('${order.orderId}')">
                     View
                 </button>
             </td>
