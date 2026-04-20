@@ -160,3 +160,11 @@ function clearFields(...fieldIds) {
         }
     });
 }
+
+window.login = login;
+window.logout = logout;
+window.loadPage = loadPage;
+window.loadOrderPage = loadOrderPage;
+window.togglePassword = togglePassword;
+window.selectRole = selectRole;
+window.clearFields = clearFields;
