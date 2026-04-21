@@ -6,6 +6,22 @@ import {
     customers,
 } from "../model/CustomerModel.js";
 
+import {
+    getCart,
+      addToCartId,
+      deleteCartItemById
+} from "../model/CartModel.js";
+
+import {
+  getAllOrders,
+  addOrder
+} from "../model/OrderModel.js";
+
+import {
+  showError,
+  clearFields,
+} from "../js/main.js";
+
 // Load Items for Order Page
 export function loadAllItemsForOrderPage() {
   const list = document.getElementById("orderItemList");
@@ -24,7 +40,7 @@ export function loadAllItemsForOrderPage() {
     <div>
         <h3 class="font-bold text-white text-sm">${item.itemName}</h3>
         <p class="text-xs text-gray-300 mt-1">Item Code: ${item.itemId}</p>
-        <p class="text-indigo-400 font-bold mt-2">$${item.itemPrice}</p>
+        <p class="text-indigo-400 font-bold mt-2">LKR: ${item.itemPrice}</p>
         <p class="text-emerald-400 text-[10px] font-semibold mt-1">Stock: ${item.itemQuantity}</p>
     </div>
     <button 
@@ -38,13 +54,13 @@ export function loadAllItemsForOrderPage() {
   });
 }
 
-// Add to cart
-const cart = [];
+
 export function addToCart(itemID) {
   // Find the item in the items array
   const item = getAllItems().find((i) => i.itemId === itemID);
   const stockItem = getAllItems().find(i => i.itemId === itemID);
 
+  const cart = getCart(); // Get current cart state
 
   if (!item) {
     showError("Item not found!");
@@ -63,7 +79,7 @@ export function addToCart(itemID) {
     }
   } else {
     // If item is not in cart, add it with quantity 1
-    cart.push({ ...item, quantity: 1 });
+    addToCartId(itemID);
   }
 
   renderCart(cart); // Update cart display
@@ -73,8 +89,25 @@ export function addToCart(itemID) {
 
 }
 
+// Calculate total amount
+function totalCartAmount() {
+
+  const cart = getCart(); // Get current cart state
+
+    const cartSubtotal = document.getElementById("CartSubtotal");
+  const cartTax = document.getElementById("CartTax");
+  const cartTotal = document.getElementById("CartTotal");
+
+
+  cartSubtotal.textContent = "Rs:" + cart.reduce((sum, i) => sum + (i.itemPrice * i.quantity), 0).toFixed(2);
+  cartTax.textContent = "Rs:" + (cart.reduce((sum, i) => sum + (i.itemPrice * i.quantity), 0) * 0.10).toFixed(2);
+  cartTotal.textContent = "Rs:" + (cart.reduce((sum, i) => sum + (i.itemPrice * i.quantity), 0) * 1.10).toFixed(2);
+}
+
 // Render Cart
 function renderCart(cartItems) {
+
+  totalCartAmount(); // Update total amount whenever cart is rendered
 
   const list = document.getElementById("cartContent");
   list.innerHTML = ""; // Clear old cart items (for testing, remove this in real implementation)
@@ -113,17 +146,23 @@ function renderCart(cartItems) {
   });
 }
 
+
 // update cart quantity
 document.getElementById("cartContent").addEventListener("click", (e) => {
+
+  const cart = getCart(); // Get current cart state
+
+  totalCartAmount(); // Update total amount whenever cart is updated
+
   const id = e.target.dataset.id;
-  const cartItem = cart.find(i => i.itemId === id);
-  const stockItem = items.find(i => i.itemId === id);
+  const cartItem = getCart().find(i => i.itemId === id);
+  const stockItem = getAllItems().find(i => i.itemId === id);
 
   if (e.target.classList.contains("qtyMinus")) {
     if (cartItem && cartItem.quantity > 0) cartItem.quantity--;
     if (cartItem && cartItem.quantity === 0) {
       // Optionally, you can remove the item from the cart if quantity reaches 0
-      cart.splice(cart.findIndex(i => i.itemId === id), 1);
+      deleteCartItemById(id); // Remove from cart model as well
     }
   }
 
@@ -136,27 +175,30 @@ document.getElementById("cartContent").addEventListener("click", (e) => {
   }
 
   if (e.target.classList.contains("fa-trash-can")) {
+    console.log("Removing item from cart:", id);
     if (cartItem) {
-      cart.splice(cart.findIndex(i => i.itemId === id), 1);
+      deleteCartItemById(id); // Remove from cart model
     }
   }
 
-  renderCart(cart);
+  renderCart(getCart());
   countCartItems();
 
-  console.log("Current Cart:", cart);
+  console.log("Current Cart:", getCart());
 
 });
 
 // Count Cart Items
 function countCartItems() {
-document.getElementById('cartCount').textContent = cart.length;
+  const cart = getCart(); // Get current cart state
+  document.getElementById('cartCount').textContent = cart.length;
 }
 
-const order = []; // to store placed orders
+
 
 // Place Order
 function placeOrder() {
+  const cart = getCart(); // Get current cart state
   if (cart.length === 0) {
     showError("Your cart is empty!");
     return;
@@ -173,7 +215,7 @@ function placeOrder() {
     if (result.isConfirmed) {
       
       // Create order object
-      const orderId = "ORD" + String(order.length + 1).padStart(3, "0");
+      const orderId = "ORD" + String(getAllOrders().length + 1).padStart(3, "0");
       const customerId = document.getElementById("customerInput").value;
       const customer = customers.find(c => c.customerId === customerId);
       const orderItems = cart.map(i => ({
@@ -183,7 +225,7 @@ function placeOrder() {
         price: i.itemPrice,
         total: i.itemPrice * i.quantity
       }));
-      const totalAmount = orderItems.reduce((sum, i) => sum + i.total, 0);
+      const totalAmount = document.getElementById("CartTotal").textContent;
 
       const newOrder = {
         orderId,
@@ -195,9 +237,9 @@ function placeOrder() {
         date: new Date().toLocaleString()
       };
 
-      order.push(newOrder); // Save the order
+      addOrder(newOrder); // Save order to model
 
-      console.log("Order", order);
+      console.log("Order", getAllOrders());
 
       Swal.fire({
         icon: "success",
@@ -205,6 +247,11 @@ function placeOrder() {
         text: `Your order ${orderId} has been placed successfully!`,
         confirmButtonColor: "#3085d6",
       });
+
+      document.getElementById("CartSubtotal").textContent = "Rs:0.00";
+      document.getElementById("CartTax").textContent = "Rs:0.00";
+      document.getElementById("CartTotal").textContent = "Rs:0.00";
+
       updateStockAfterOrder();
       loadPastedOrder(); // Refresh order list to show new order
     }
@@ -214,7 +261,7 @@ function placeOrder() {
 function loadPastedOrder() { // Load orders from memory / localStorage
   const orderTableBody = document.getElementById("OrderTableBody");
   orderTableBody.innerHTML = ""; // Clear existing rows
-  order.forEach((order) => {
+  getAllOrders().forEach((order) => {
     const row = document.createElement("tr");
     row.classList.add("hover:bg-gray-700", "text-white");
     row.innerHTML = `
@@ -223,7 +270,7 @@ function loadPastedOrder() { // Load orders from memory / localStorage
             <td class="px-4 py-2">${order.customerId}</td>
             <td class="px-4 py-2">${order.customerName}</td>
             <td class="px-4 py-2">${order.customerPhone}</td>
-            <td class="px-4 py-2">LKR ${order.totalAmount.toFixed(2)}</td>
+            <td class="px-4 py-2">LKR ${order.totalAmount}</td>
             <td class="px-4 py-2 text-right">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white px-3 py-1 rounded transition " onclick="viewOrder('${order.orderId}')">
                     View
@@ -233,7 +280,7 @@ function loadPastedOrder() { // Load orders from memory / localStorage
     orderTableBody.appendChild(row);
   });
 
-  if (order.length === 0) {
+  if (getAllOrders().length === 0) {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td colspan="5" class="px-6 py-12 text-center text-gray-400">
@@ -246,7 +293,7 @@ function loadPastedOrder() { // Load orders from memory / localStorage
 
 // View Order Details
 function viewOrder(orderId) {
-  const orderDetails = order.find(o => o.orderId === orderId);
+  const orderDetails = getAllOrders().find(o => o.orderId === orderId);
   if (!orderDetails) {
     showError("Order not found!");
     return;
@@ -302,7 +349,7 @@ function findOrder(event) {
   
   let found = false;
 
-  order.forEach((order) => {
+  getAllOrders().forEach((order) => {
     if (order.orderId.toLowerCase().includes(query) || order.customerName.toLowerCase().includes(query) || order.customerPhone.includes(query)) {
       const row = document.createElement("tr");
       row.classList.add("hover:bg-gray-700", "text-white");
@@ -312,7 +359,7 @@ function findOrder(event) {
         <td class="px-4 py-2">${order.customerId}</td>
         <td class="px-4 py-2">${order.customerName}</td>
         <td class="px-4 py-2">${order.customerPhone}</td>
-        <td class="px-4 py-2">LKR ${order.totalAmount.toFixed(2)}</td>
+        <td class="px-4 py-2">LKR ${order.totalAmount}</td>
         <td class="px-4 py-2 text-right">
           <button class="bg-blue-500 hover:bg-blue-700 text-white px-3 py-1 rounded" onclick="viewOrder('${order.orderId}')">
             View
@@ -338,16 +385,16 @@ function findOrder(event) {
 // update stock after order placement
 function updateStockAfterOrder() {
   const items = getAllItems();
-  cart.forEach(cartItem => {
+  getCart().forEach(cartItem => {
     const stockItem = items.find(i => i.itemId === cartItem.itemId);
     if (stockItem) {
       stockItem.itemQuantity -= cartItem.quantity;
     }
   });
-  cart.length = 0; // Clear cart after order is placed
+  getCart().length = 0; // Clear cart after order is placed
   const list = document.getElementById("cartContent");
   list.innerHTML = ""; // Clear old cart items (for testing, remove this in real implementation)
-  console.log("Cart cleared after order placement. Current Cart:", cart);
+  console.log("Cart cleared after order placement. Current Cart:", getCart());
   loadItems(); // Refresh item list to reflect updated stock
   loadAllItemsForOrderPage(); // Refresh order page item list
   countCartItems(); // Update cart count

@@ -12,6 +12,11 @@ import {
   loadAllItemsForOrderPage
 } from "../controller/OrderController.js";
 
+import {
+  showError,
+  clearFields,
+} from "../js/main.js";
+
 // Save Item
 function saveItem(event) {
   event.preventDefault();
@@ -22,6 +27,15 @@ function saveItem(event) {
 
   if (!itemName || !itemPrice || !itemQuantity) {
     showError("Please fill in all required fields.");
+    return;
+  } else if (itemName.length < 3) {
+    showError("Item name must be at least 3 characters long.");
+    return;
+  } else if (isNaN(itemPrice) || itemPrice <= 0) {
+    showError("Please enter a valid price greater than 0.");
+    return;
+  } else if (!Number.isInteger(Number(itemQuantity)) || itemQuantity <= 0) {
+    showError("Please enter a valid quantity (positive integer).");
     return;
   }
 
@@ -35,11 +49,11 @@ function saveItem(event) {
   addItem(item);
 
   const resultDiv = document.getElementById("ItemSearchResultArea");
-      if (resultDiv) {
-        resultDiv.classList.remove("hidden");
-        resultDiv.innerHTML =
+  if (resultDiv) {
+    resultDiv.classList.remove("hidden");
+    resultDiv.innerHTML =
       "<p class='text-sm text-white'>Enter a search term.</p>";
-      }
+  }
 
   Swal.fire({
     icon: "success",
@@ -48,7 +62,7 @@ function saveItem(event) {
   });
 
   loadItems();
-  clearFields("itemName", "itemPrice", "itemQuantity", "itemId","itemSearch");
+  clearFields("itemName", "itemPrice", "itemQuantity", "itemId", "itemSearch");
 
 }
 
@@ -99,7 +113,7 @@ function loadItems() {
   }
 
   countItems();
-    loadAllItemsForOrderPage(); // Reload items for order page
+  loadAllItemsForOrderPage(); // Reload items for order page
 }
 
 // Edit Item
@@ -133,24 +147,36 @@ function updateItem(event) {
   if (!id) {
     showError("No item selected.");
     return;
+  } else if (!itemName || !itemPrice || !itemQuantity) {
+    showError("Please fill in all required fields.");
+    return;
+  } else if (itemName.length < 3) {
+    showError("Item name must be at least 3 characters long.");
+    return;
+  } else if (isNaN(itemPrice) || itemPrice <= 0) {
+    showError("Please enter a valid price greater than 0.");
+    return;
+  } else if (!Number.isInteger(Number(itemQuantity)) || itemQuantity <= 0) {
+    showError("Please enter a valid quantity (positive integer).");
+    return;
   }
 
   updateItemById(id, { itemName, itemPrice, itemQuantity });
 
-    const resultDiv = document.getElementById("ItemSearchResultArea");
-      if (resultDiv) {
-        resultDiv.classList.remove("hidden");
-        resultDiv.innerHTML =
+  const resultDiv = document.getElementById("ItemSearchResultArea");
+  if (resultDiv) {
+    resultDiv.classList.remove("hidden");
+    resultDiv.innerHTML =
       "<p class='text-sm text-white'>Enter a search term.</p>";
-      }
+  }
 
   Swal.fire({
-        icon: "success",
-        title: "Item Updated",
-        text: `The item ${itemId} has been updated successfully.`,
-        confirmButtonColor: "#3085d6",
-      });
-      clearFields("itemName", "itemPrice", "itemQuantity", "itemId","itemSearch");
+    icon: "success",
+    title: "Item Updated",
+    text: `The item ${itemId} has been updated successfully.`,
+    confirmButtonColor: "#3085d6",
+  });
+  clearFields("itemName", "itemPrice", "itemQuantity", "itemId", "itemSearch");
   loadItems();
 
 }
@@ -171,15 +197,15 @@ function deleteItem(itemId) {
     if (result.isConfirmed) {
       // User clicked Yes
       deleteItemById(itemId);
-        clearFields("itemName", "itemPrice", "itemQuantity", "itemId","itemSearch");
+      clearFields("itemName", "itemPrice", "itemQuantity", "itemId", "itemSearch");
       loadItems();
       loadAllItemsForOrderPage(); // Reload items for order page
 
-        const resultDiv = document.getElementById("ItemSearchResultArea");
+      const resultDiv = document.getElementById("ItemSearchResultArea");
       if (resultDiv) {
         resultDiv.classList.remove("hidden");
         resultDiv.innerHTML =
-      "<p class='text-sm text-white'>Enter a search term.</p>";
+          "<p class='text-sm text-white'>Enter a search term.</p>";
       }
 
       Swal.fire("Deleted!", "The item has been deleted.", "success");
@@ -198,6 +224,12 @@ function findItem(event) {
   const results = searchItems(query);
 
   const resultDiv = document.getElementById("ItemSearchResultArea");
+
+  if (!query) {
+    resultDiv.classList.add("hidden");
+    showError("Please enter a search term.");
+    return;
+  }
 
   if (results.length === 0) {
     resultDiv.classList.remove("hidden");

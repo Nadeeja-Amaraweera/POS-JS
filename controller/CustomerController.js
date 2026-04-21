@@ -8,6 +8,11 @@ import {
     searchCustomers,
 } from "../model/CustomerModel.js";
 
+import {
+  showError,
+  clearFields,
+} from "../js/main.js";
+
 // Save Customer
 function saveCustomer(event) {
   event.preventDefault(); // Prevent form submission
@@ -18,6 +23,21 @@ function saveCustomer(event) {
 
   if (!name || !email || !phone) {
     showError("Please fill in all required fields.");
+    return;
+  } else if (name.length < 3) {
+    showError("Name must be at least 3 characters long.");
+    return;
+  } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+    showError("Please enter a valid email address.");
+    return;
+  } else if (!/^\d{10}$/.test(phone)) {
+    showError("Phone number must be 10 digits long.");
+    return;
+  } else if (getAllCustomers().some(c => c.email === email)) {
+    showError("Email already exists. Please use a different email.");
+    return;
+  } else if (getAllCustomers().some(c => c.phone === phone)) {
+    showError("Phone number already exists. Please use a different phone number.");
     return;
   } else {
     // Proceed with saving the customer
@@ -127,7 +147,22 @@ function updateCustomer(event) {
     showError("No customer selected for update.");
     return;
   } else if (!name || !email || !phone) {
-    showError("Please fill in all customer details.");
+    showError("Please fill in all required fields.");
+    return;
+  } else if (name.length < 3) {
+    showError("Name must be at least 3 characters long.");
+    return;
+  } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+    showError("Please enter a valid email address.");
+    return;
+  } else if (!/^\d{10}$/.test(phone)) {
+    showError("Phone number must be 10 digits long.");
+    return;
+  } else if (getAllCustomers().some(c => c.email === email)) {
+    showError("Email already exists. Please use a different email.");
+    return;
+  } else if (getAllCustomers().some(c => c.phone === phone)) {
+    showError("Phone number already exists. Please use a different phone number.");
     return;
   } else {
 
@@ -204,8 +239,6 @@ function findCustomer(event) {
 
   const resultDiv = document.getElementById("CustomerSearchResultArea");
 
-  let found = false;
-
   if (!query) {
     resultDiv.classList.add("hidden");
     showError("Please enter a search term.");
@@ -266,3 +299,5 @@ window.updateCustomer = updateCustomer;
 window.deleteCustomer = deleteCustomer;
 window.findCustomer = findCustomer;
 window.countCustomers = countCustomers;
+window.showError = showError;
+window.clearFields = clearFields;

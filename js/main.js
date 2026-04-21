@@ -3,7 +3,7 @@
 var errorBox = document.querySelector(".error-msg-box");
 var errorCloseBtn = document.getElementById("error-close-btn");
 
-function showError(message) {
+export function showError(message) {
     document.getElementById("error-text").textContent = message;
     errorBox.style.transform = "translate(-50%, -100%)";
     showErrorSlowly();
@@ -152,7 +152,7 @@ function selectRole(btn) {
 }
 
 // Clear multiple fields by IDs
-function clearFields(...fieldIds) {
+export function clearFields(...fieldIds) {
     fieldIds.forEach(id => {
         const field = document.getElementById(id);
         if (field) {
@@ -168,3 +168,4 @@ window.loadOrderPage = loadOrderPage;
 window.togglePassword = togglePassword;
 window.selectRole = selectRole;
 window.clearFields = clearFields;
+window.showError = showError;

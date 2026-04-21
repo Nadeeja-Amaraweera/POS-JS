@@ -615,20 +615,11 @@
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="orderItemList">
-                            <div
-                                class="p-4 border border-[#3a4a5a] rounded-xl shadow-sm bg-white/5 flex justify-between items-start hover:shadow-md transition">
-                                <div>
-                                    <h3 class="font-bold text-white">Items Name</h3>
-                                    <p class="text-xs text-gray-400">Item Code</p>
-                                    <p class="text-indigo-400 font-bold mt-2">price</p>
-                                    <p class="text-emerald-400 text-[10px] font-semibold">
-                                        Stock: 25
-                                    </p>
-                                </div>
-                                <button type="button"
-                                    class="bg-[#4F46E5] hover:bg-indigo-700 text-white px-4 py-1.5 rounded-md text-xs font-medium flex items-center gap-1 cursor-pointer">
-                                    + Add
-                                </button>
+                            <div class="p-6 border border-dashed border-[#3a4a5a] rounded-xl bg-white/5 text-center">
+                                <h3 class="text-white font-semibold text-sm">No items found</h3>
+                                <p class="text-gray-400 text-xs mt-1">
+                                    No items have been added yet.
+                                </p>
                             </div>
                         </div>
                     </section>
@@ -656,16 +647,16 @@
                             <div class="space-y-2 mb-4 text-sm font-medium text-white/80">
                                 <div class="flex justify-between text-gray-300">
                                     <span>Subtotal:</span>
-                                    <span>Rs:0.00</span>
+                                    <span id="CartSubtotal">Rs:0.00</span>
                                 </div>
                                 <div class="flex justify-between text-gray-300">
                                     <span>Tax (10%):</span>
-                                    <span>Rs:0.00</span>
+                                    <span id="CartTax">Rs:0.00</span>
                                 </div>
                                 <div
                                     class="flex justify-between text-indigo-400 text-lg font-bold border-t border-dashed border-[#3a4a5a] pt-2 mt-2">
                                     <span>Total:</span>
-                                    <span>Rs:0.00</span>
+                                    <span id="CartTotal">Rs:0.00</span>
                                 </div>
                             </div>
 
