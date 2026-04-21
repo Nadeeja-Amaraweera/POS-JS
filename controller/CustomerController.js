@@ -28,7 +28,7 @@ function saveCustomer(event) {
         phone
     };
     addCustomer(customer);
-const resultDiv = document.getElementById("CustomerSearchResultArea");
+    const resultDiv = document.getElementById("CustomerSearchResultArea");
       if (resultDiv) {
         resultDiv.classList.remove("hidden");
         resultDiv.innerHTML =

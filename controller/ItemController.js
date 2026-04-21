@@ -88,6 +88,16 @@ function loadItems() {
     table.appendChild(row);
   });
 
+  if (items.length === 0) {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td colspan="5" class="px-6 py-12 text-center text-gray-400">
+        No items found. Add one to see data here.
+      </td>
+    `;
+    table.appendChild(row);
+  }
+
   countItems();
     loadAllItemsForOrderPage(); // Reload items for order page
 }

@@ -145,7 +145,6 @@
 
     <!-- Dashboard Page -->
     <div class="flex bg-gray-50 font-sans w-full min-h-screen m-0 p-0 hidden" id="dashPage">
-
         <!-- Dashboard Sidebar -->
         <aside
             class="w-64 bg-gradient-to-br from-[#0f2027] via-[#203a43] to-[#2c5364] text-white flex flex-col p-4 shadow-lg">
@@ -381,7 +380,11 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-[#3a4a5a]" id="customerTableBody">
-
+                                    <tr>
+                                        <td colspan="5" class="px-6 py-12 text-center text-gray-400">
+                                            No customers found. Add one to see data here.
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -546,7 +549,11 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-[#3a4a5a]" id="itemTableBody">
-
+                                    <tr>
+                                        <td colspan="5" class="px-6 py-12 text-center text-gray-400">
+                                            No items found. Add one to see data here.
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -557,13 +564,13 @@
 
         <!-- Order Page -->
         <main class="flex-1 p-8 flex flex-col gap-6 overflow-hidden hidden" id="ordersPage" style="
-      background: linear-gradient(
-        135deg,
-        #0f2027 0%,
-        #203a43 50%,
-        #2c5364 100%
-      );
-    ">
+          background: linear-gradient(
+            135deg,
+            #0f2027 0%,
+            #203a43 50%,
+            #2c5364 100%
+          );
+        ">
             <!-- Order Navigation -->
             <div class="flex gap-4 mb-2">
                 <button
@@ -614,7 +621,9 @@
                                     <h3 class="font-bold text-white">Items Name</h3>
                                     <p class="text-xs text-gray-400">Item Code</p>
                                     <p class="text-indigo-400 font-bold mt-2">price</p>
-                                    <p class="text-emerald-400 text-[10px] font-semibold">Stock: 25</p>
+                                    <p class="text-emerald-400 text-[10px] font-semibold">
+                                        Stock: 25
+                                    </p>
                                 </div>
                                 <button type="button"
                                     class="bg-[#4F46E5] hover:bg-indigo-700 text-white px-4 py-1.5 rounded-md text-xs font-medium flex items-center gap-1 cursor-pointer">
@@ -663,7 +672,9 @@
                             <div class="space-y-3 mb-6">
                                 <select placeholder="Customer Name *" id="customerInput"
                                     class="w-full px-4 py-2 border border-gray-600 rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white/10 text-white placeholder-gray-300">
-                                    <option value="" class="text-gray-900">Select Customer</option>
+                                    <option value="" class="text-gray-900">
+                                        Select Customer
+                                    </option>
                                     <!-- Options will be populated by JavaScript -->
                                 </select>
                                 <input type="text" placeholder="Customer Phone (Optional)" id="customerPhoneInput"
@@ -703,12 +714,14 @@
                                 </svg>
                             </span>
                             <input type="text" placeholder="Search orders by Order ID, Customer name or Phone"
-                               id="orderSearch" class="block w-full pl-10 pr-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm bg-white/10 text-white placeholder-gray-300 transition" />
+                                id="orderSearch"
+                                class="block w-full pl-10 pr-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm bg-white/10 text-white placeholder-gray-300 transition" />
                         </div>
 
                         <div class="flex gap-3">
                             <button
-                                class="bg-[#059669] hover:bg-emerald-700 text-white px-5 py-2 rounded-md flex items-center gap-2 text-sm font-medium transition" type="button" onclick="findOrder(event)">
+                                class="bg-[#059669] hover:bg-emerald-700 text-white px-5 py-2 rounded-md flex items-center gap-2 text-sm font-medium transition"
+                                type="button" onclick="findOrder(event)">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -716,7 +729,8 @@
                                 Search
                             </button>
                             <button
-                                class="bg-white/10 hover:bg-gray-700 text-white px-5 py-2 rounded-md flex items-center gap-2 text-sm font-medium transition" type="button" onclick="loadPastedOrder()">
+                                class="bg-white/10 hover:bg-gray-700 text-white px-5 py-2 rounded-md flex items-center gap-2 text-sm font-medium transition"
+                                type="button" onclick="loadPastedOrder()">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M4 6h16M4 12h16M4 18h16"></path>
@@ -731,35 +745,40 @@
                     <table class="w-full text-left">
                         <thead class="bg-white/10 text-white text-sm">
                             <tr>
-                                <th class="px-6 py-4 font-bold border-b border-[#3a4a5a] text-xs uppercase">Order ID
+                                <th class="px-6 py-4 font-bold border-b border-[#3a4a5a] text-xs uppercase">
+                                    Order ID
                                 </th>
-                                <th class="px-6 py-4 font-bold border-b border-[#3a4a5a] text-xs uppercase">Date & Time
+                                <th class="px-6 py-4 font-bold border-b border-[#3a4a5a] text-xs uppercase">
+                                    Date & Time
                                 </th>
-                                <th class="px-6 py-4 font-bold border-b border-[#3a4a5a] text-xs uppercase">Customer ID
+                                <th class="px-6 py-4 font-bold border-b border-[#3a4a5a] text-xs uppercase">
+                                    Customer ID
                                 </th>
-                                <th class="px-6 py-4 font-bold border-b border-[#3a4a5a] text-xs uppercase">Customer
-                                    Name</th>
-                                <th class="px-6 py-4 font-bold border-b border-[#3a4a5a] text-xs uppercase">Phone</th>
-                                <th class="px-6 py-4 font-bold border-b border-[#3a4a5a] text-xs uppercase">Total Amount
+                                <th class="px-6 py-4 font-bold border-b border-[#3a4a5a] text-xs uppercase">
+                                    Customer Name
+                                </th>
+                                <th class="px-6 py-4 font-bold border-b border-[#3a4a5a] text-xs uppercase">
+                                    Phone
+                                </th>
+                                <th class="px-6 py-4 font-bold border-b border-[#3a4a5a] text-xs uppercase">
+                                    Total Amount
                                 </th>
                                 <th class="px-6 py-4 font-bold border-b border-[#3a4a5a] text-xs uppercase text-right">
-                                    Actions</th>
+                                    Actions
+                                </th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-[#3a4a5a]" id="OrderTableBody">
-                            
-                        </tbody>
+                        <tbody class="divide-y divide-[#3a4a5a]" id="OrderTableBody"></tbody>
                     </table>
                 </div>
             </div>
         </main>
     </div>
-    
+
     <script type="module" src="js/main.js"></script>
     <script type="module" src="controller/CustomerController.js"></script>
     <script type="module" src="controller/ItemController.js"></script>
     <script type="module" src="controller/OrderController.js"></script>
-
 </body>
 
 </html>
