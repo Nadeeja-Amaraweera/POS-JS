@@ -1,15 +1,15 @@
 import {
-    getAllItems,
+  getAllItems,
 } from "../model/ItemModel.js";
 
 import {
-    customers,
+  customers,
 } from "../model/CustomerModel.js";
 
 import {
-    getCart,
-      addToCartId,
-      deleteCartItemById
+  getCart,
+  addToCartId,
+  deleteCartItemById
 } from "../model/CartModel.js";
 
 import {
@@ -94,7 +94,7 @@ function totalCartAmount() {
 
   const cart = getCart(); // Get current cart state
 
-    const cartSubtotal = document.getElementById("CartSubtotal");
+  const cartSubtotal = document.getElementById("CartSubtotal");
   const cartTax = document.getElementById("CartTax");
   const cartTotal = document.getElementById("CartTotal");
 
@@ -213,7 +213,7 @@ function placeOrder() {
     cancelButtonColor: "#d33",
   }).then((result) => {
     if (result.isConfirmed) {
-      
+
       // Create order object
       const orderId = "ORD" + String(getAllOrders().length + 1).padStart(3, "0");
       const customerId = document.getElementById("customerInput").value;
@@ -225,7 +225,15 @@ function placeOrder() {
         price: i.itemPrice,
         total: i.itemPrice * i.quantity
       }));
+
       const totalAmount = document.getElementById("CartTotal").textContent;
+      const cashReceived = document.getElementById("cashReceivedInput").value;
+      const balance = document.getElementById("balanceReceivedInput").value;
+
+      if (cashReceived && parseFloat(cashReceived) < parseFloat(totalAmount.replace("Rs:", ""))) {
+        showError("Cash received cannot be less than total amount!");
+        return;
+      }
 
       const newOrder = {
         orderId,
@@ -234,6 +242,8 @@ function placeOrder() {
         customerPhone: customer ? customer.phone : "Unknown",
         items: orderItems,
         totalAmount,
+        cashReceived,
+        balance,
         date: new Date().toLocaleString()
       };
 
@@ -328,6 +338,16 @@ function viewOrder(orderId) {
         <tbody>
           ${itemsHtml}
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="px-4 py-2 text-right font-bold">Cash Received:</td>
+            <td class="px-4 py-2 font-bold">LKR ${orderDetails.cashReceived}</td>
+          </tr>
+          <tr>
+            <td colspan="3" class="px-4 py-2 text-right font-bold">Balance:</td>
+            <td class="px-4 py-2 font-bold">LKR ${orderDetails.balance}</td>
+          </tr>
+        </tfoot>
       </table>
     `
   });
@@ -346,7 +366,7 @@ function findOrder(event) {
     return;
   }
 
-  
+
   let found = false;
 
   getAllOrders().forEach((order) => {
@@ -427,6 +447,36 @@ function loadCustomerOptions() {
   });
 }
 
+// Cash Received and Change Calculation
+function calculateBalance() {
+  let total = parseFloat(document.getElementById("CartTotal").textContent.replace("Rs:", "")) || 0;
+  let cashReceived = parseFloat(document.getElementById("cashReceivedInput").value) || 0;
+  const balance = document.getElementById("balanceReceivedInput").value;
+
+  let regex = /^\d*\.?\d*$/;
+
+  if (!regex.test(cashReceived)) {
+    showError("Cash received must be a valid number!");
+    return;
+  }
+  if (!regex.test(balance)) {
+    showError("Balance must be a valid number!");
+    return;
+  }
+
+
+  if (cashReceived < total) {
+    document.getElementById("balanceReceivedInput").classList.add("text-red-300");
+    document.getElementById("balanceReceivedInput").classList.remove("text-green-300");
+  } else {
+    let balance = cashReceived - total;
+    document.getElementById("balanceReceivedInput").value = balance.toFixed(2);
+    document.getElementById("balanceReceivedInput").classList.add("text-green-300");
+    document.getElementById("balanceReceivedInput").classList.remove("text-red-300");
+  }
+}
+
+
 window.addToCart = addToCart;
 window.placeOrder = placeOrder;
 window.viewOrder = viewOrder;
@@ -434,3 +484,4 @@ window.findOrder = findOrder;
 window.loadPastedOrder = loadPastedOrder;
 window.loadAllItemsForOrderPage = loadAllItemsForOrderPage;
 window.loadCustomerOptions = loadCustomerOptions;
+window.calculateBalance = calculateBalance;

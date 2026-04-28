@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://kit.fontawesome.com/160cb449a7.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="/favicon.ico" />
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
     <!-- Alerts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -670,6 +671,16 @@
                                 </select>
                                 <input type="text" placeholder="Customer Phone (Optional)" id="customerPhoneInput"
                                     class="w-full px-4 py-2 border border-gray-600 rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white/10 text-white placeholder-gray-300" />
+
+                                    <span class="text-normal text-white">Cash Received:</span>
+                                    
+                                    <input type="number" placeholder="Cash Received (Optional)" id="cashReceivedInput" step="0.01" oninput="calculateBalance()"
+                                    class="w-full px-4 py-2 border border-gray-600 rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white/10 text-white placeholder-gray-300" />
+
+                                    <span class="text-normal text-white">Balance:</span>
+
+                                    <input type="number" placeholder="Balance Received (Optional)" id="balanceReceivedInput" step="0.01"
+                                    class="w-full px-4 py-2 border border-gray-600 rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white/10 placeholder-gray-300" />
                             </div>
 
                             <div class="space-y-3">
