@@ -464,13 +464,13 @@ function calculateBalance() {
     return;
   }
 
+  let  newBalance = cashReceived - total;
 
-  if (cashReceived < total) {
+  if (newBalance < 0) {
     document.getElementById("balanceReceivedInput").classList.add("text-red-300");
     document.getElementById("balanceReceivedInput").classList.remove("text-green-300");
   } else {
-    let balance = cashReceived - total;
-    document.getElementById("balanceReceivedInput").value = balance.toFixed(2);
+    document.getElementById("balanceReceivedInput").value = newBalance.toFixed(2);
     document.getElementById("balanceReceivedInput").classList.add("text-green-300");
     document.getElementById("balanceReceivedInput").classList.remove("text-red-300");
   }

@@ -34,7 +34,7 @@ function login() {
     const username = document.getElementById("usernameField").value;
     const password = document.getElementById("passwordField").value;
 
-    if (username === "a" && password === "a") {
+    if (username === "admin" && password === "123") {
         showpage("loginPage", "dashPage");
     } else {
         showError("Invalid username or password. Please try again.");
